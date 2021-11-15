@@ -1,42 +1,24 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { TrainersService } from './trainers.service';
 import { CreateTrainerDto } from './dto/create-trainer.dto';
-import { UpdateTrainerDto } from './dto/update-trainer.dto';
+import { Trainer } from './schemas/trainer.schema';
 
 @Controller('trainers')
 export class TrainersController {
+  //private createTrainerDto: CreateTrainerDto;
   constructor(private readonly trainersService: TrainersService) {}
 
-  @Post()
-  create(@Body() createTrainerDto: CreateTrainerDto) {
-    return this.trainersService.create(createTrainerDto);
+  @Post('/trainer')
+  async create(@Res() res, @Body() createTrainerDto: CreateTrainerDto) {
+    const newTrainer = await this.trainersService.create(createTrainerDto);
+    return res.status(HttpStatus.OK).json({
+      message: 'Trainer was added successfully',
+      post: newTrainer,
+    });
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Trainer[]> {
     return this.trainersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.trainersService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTrainerDto: UpdateTrainerDto) {
-    return this.trainersService.update(+id, updateTrainerDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.trainersService.remove(+id);
   }
 }
