@@ -1,0 +1,30 @@
+.header-wrapper {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  background-image: url(https://trener.ua/_nuxt/img/3d0f02c.png);
+  background-repeat: no-repeat;
+  height: 48px;
+  width: 67px;
+  margin-right: 20px;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 400;
+  color: grey;
+  font-family: Ubuntu, sans-serif;
+  margin-right: 10px;
+  padding-left: 20px;
+}
+.text:after {
+  content: "ue6e1";
+}
+
+/*# sourceMappingURL=style.css.map */
