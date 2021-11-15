@@ -34,4 +34,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 /node_modules/
 /.idea
-/client/node_modules
+node_modules/
