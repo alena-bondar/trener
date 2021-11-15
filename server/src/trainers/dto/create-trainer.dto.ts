@@ -4,5 +4,5 @@ export class CreateTrainerDto {
   readonly lastName: string;
   readonly sport: string;
   readonly phoneNumber: string;
-  readonly password: string;
+  password: string;
 }

@@ -9,9 +9,7 @@ export class TrainersController {
 
   @Post('/trainer')
   async addTrainer(@Res() res, @Body() createTrainerDto: CreateTrainerDto) {
-    console.log(createTrainerDto);
     const newTrainer = await this.trainersService.addTrainer(createTrainerDto);
-    console.log(newTrainer);
     return res.status(HttpStatus.OK).json({
       message: 'Trainer was added successfully',
       trainer: newTrainer,
