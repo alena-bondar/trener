@@ -5,22 +5,25 @@ export type TrainerDocument = Trainer & Document;
 
 @Schema()
 export class Trainer {
-  @Prop({ required: true })
+  @Prop()
+  trainerID: string;
+
+  @Prop()
   email: string;
 
-  @Prop({ required: true })
+  @Prop()
   name: string;
 
-  @Prop({ required: true })
+  @Prop()
   lastName: string;
 
-  @Prop({ required: true })
+  @Prop()
   sport: string;
 
-  @Prop({ required: true })
+  @Prop()
   phoneNumber: string;
 
-  @Prop({ required: true })
+  @Prop()
   password: string;
 }
 
