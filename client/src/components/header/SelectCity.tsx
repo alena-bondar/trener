@@ -5,6 +5,5 @@ type Props = {
 };
 
 export const SelectCity: React.FC<Props> = ({ setChoicedCity }) => {
-  console.log(setChoicedCity);
   return <div></div>;
 };

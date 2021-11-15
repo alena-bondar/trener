@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SelectCity } from '../helpers/SelectCity';
-import { SelectLanguage } from '../helpers/SelectLanguage';
+import { SelectCity } from './SelectCity';
+import { SelectLanguage } from './SelectLanguage';
 import './style.scss';
 
 export const Header: React.FC = () => {
