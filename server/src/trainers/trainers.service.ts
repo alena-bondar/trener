@@ -18,8 +18,21 @@ export class TrainersService {
     return newTrainer.save();
   }
 
+  async getTrainer(_id): Promise<Trainer> {
+    const trainer = await this.trainerModel.findById(_id).exec();
+    return trainer;
+  }
+
+  async getTrainerByEmail(email): Promise<Trainer> {
+    return await this.trainerModel.findOne({ email: email }).exec();
+  }
+
+  async getTrainerByPhoneNumber(phoneNumber): Promise<Trainer> {
+    return await this.trainerModel.findOne({ phoneNumber: phoneNumber }).exec();
+  }
+
   async getTrainers(): Promise<Trainer[]> {
-    const trainers = await this.trainerModel.find().exec();
-    return trainers;
+    const trainersList = await this.trainerModel.find().exec();
+    return trainersList;
   }
 }
