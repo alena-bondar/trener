@@ -3,13 +3,18 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TrainersModule } from './trainers/trainers.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://alena:alena1234@cluster0.et2h8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-      { useNewUrlParser: true },
-    ),
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
+    MongooseModule.forRootAsync({
+      useFactory: () => ({
+        uri: `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`,
+      }),
+    }),
     TrainersModule,
   ],
   controllers: [AppController],
