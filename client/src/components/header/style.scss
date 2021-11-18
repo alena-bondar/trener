@@ -1,3 +1,5 @@
+@import "src/styles/variables";
+
 .header-wrapper {
   display: flex;
   align-content: center;
@@ -62,7 +64,7 @@
 
   margin-right: 10px;
   padding-left: 20px;
-  border-left: 1px solid #c4c4c4;
+  border-left: 1px solid $Gray77;
 
   &__link {
     text-decoration: none;
@@ -99,7 +101,7 @@
   background-position: 20px 10px;
 
   &:hover {
-    background-color: #2f8e97;
+    background-color: $turquoise;
     background-image: url("../../images/white-plus.png");
     color: white;
   }
