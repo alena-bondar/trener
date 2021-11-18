@@ -1,0 +1,93 @@
+@import "./src/styles/variables.scss";
+
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: $Gray30;
+  height: 200px;
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 250px;
+
+  &__box {
+    display: flex;
+    justify-content: space-between;
+
+    padding-top: 30px;
+    width: 1200px;
+  }
+
+  &__container {
+    display: flex;
+  }
+
+  &__social-networks {
+
+    &--insta {
+      display: block;
+      background-image: url(../../images/insta.png);
+      height: 40px;
+      width: 207px;
+
+      margin-bottom: 8px;
+    }
+
+    &--facebook {
+      display: block;
+      background-image: url(../../images/face.png);
+      height: 40px;
+      width: 207px;
+    }
+  }
+
+  &__elems {
+    margin: 15px 15px 15px 0;
+  }
+
+  &__contacts {
+    margin-right: 100px;
+  }
+}
+
+.contacts {
+  color: white;
+  border: none;
+  font-family: Ubuntu, sans-serif;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  margin-bottom: 35px;
+
+  display: flex;
+  flex-direction: column;
+
+  &__data {
+    color: white;
+    font-size: 16px;
+
+    position: relative;
+    left: 10px;
+
+    font-family: Ubuntu, sans-serif;
+    font-weight: 300;
+    text-decoration: none;
+  }
+}
+
+.icon {
+  color: grey;
+}
+
+.adress {
+  display: flex;
+  align-items: center
+}
+
+.num {
+  position: relative;
+  top: -5px;
+}
+

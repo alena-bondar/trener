@@ -1,0 +1,115 @@
+@import "src/styles/variables";
+
+.header-wrapper {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  position: sticky;
+  top: 0;
+  width: 100%;
+
+  background-color: white;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.chose-container {
+  display: flex;
+  align-content: center;
+  justify-content: left;
+  align-items: center;
+
+  width: 600px;
+  height: 80px;
+}
+
+.enter-container {
+  display: flex;
+
+  align-content: center;
+  justify-content: right;
+  align-items: center;
+
+  width: 600px;
+  height: 80px;
+}
+
+.logo {
+  display: inline-block;
+  background-image: url(https://trener.ua/_nuxt/img/3d0f02c.png);
+  background-repeat: no-repeat;
+  height: 48px;
+  width: 67px;
+
+  margin-right: 20px;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 400;
+  color: grey;
+  font-family: Ubuntu, sans-serif;
+
+  padding-top: 4px;
+
+  height: 23px;
+
+  &__language {
+    margin-left: 128px;
+  }
+
+  &--300 {
+    font-weight: 300;
+  }
+
+  margin-right: 10px;
+  padding-left: 20px;
+  border-left: 1px solid $Gray77;
+
+  &__link {
+    text-decoration: none;
+    color: grey;
+
+    &:after {
+      margin-left: 7px;
+      content: "\276E";
+      display: inline-block;
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.enter-button {
+  border: none;
+  background-color: inherit;
+}
+
+.registration-button {
+  display: flex;
+  align-items: center;
+
+  height: 48px;
+  background-color: inherit;
+  border: 1px solid #2f8e97;
+  border-radius: 3px;
+  color: #2f8e97;
+  transition: 0.3s;
+  padding: 20px 20px 20px 70px;
+
+  background-image: url("../../images/plus.png");
+  background-repeat: no-repeat;
+  background-position: 20px 10px;
+
+  &:hover {
+    background-color: $turquoise;
+    background-image: url("../../images/white-plus.png");
+    color: white;
+  }
+}
+
+.person {
+  height: 22px;
+  width: 22px;
+
+  fill: grey;
+}
