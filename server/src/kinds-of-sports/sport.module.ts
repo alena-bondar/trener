@@ -6,9 +6,9 @@ import { PostSchema } from './schemas/post.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Trainer', schema: PostSchema }]),
+    MongooseModule.forFeature([{ name: 'KindOfSport', schema: PostSchema }]),
   ],
   controllers: [PostController],
   providers: [PostService],
 })
-export class TrainersModule {}
+export class SportModule {}

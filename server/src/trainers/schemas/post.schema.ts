@@ -23,4 +23,4 @@ export class Trainer {
   @Prop({ required: true })
   password: string;
 }
-export const TrainerSchema = SchemaFactory.createForClass(Trainer);
+export const PostSchema = SchemaFactory.createForClass(Trainer);

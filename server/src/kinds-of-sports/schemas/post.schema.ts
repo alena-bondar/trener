@@ -12,4 +12,4 @@ export class KindOfSport {
   label: string;
 }
 
-export const SportSchema = SchemaFactory.createForClass(KindOfSport);
+export const PostSchema = SchemaFactory.createForClass(KindOfSport);

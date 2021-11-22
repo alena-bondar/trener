@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTrainerDto } from './dto/create-trainer.dto';
+import { CreatePostDto } from './dto/create-post.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Trainer } from './interfaces/trainer.interface';
+import { Trainer } from './interfaces/post.interface';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class TrainersService {
+export class PostService {
   constructor(
     @InjectModel('Trainer') private readonly trainerModel: Model<Trainer>,
   ) {}
 
-  async addTrainer(createTrainerDto: CreateTrainerDto): Promise<Trainer> {
+  async create(createTrainerDto: CreatePostDto): Promise<Trainer> {
     const hash = await bcrypt.hash(createTrainerDto.password, 10);
     createTrainerDto.password = hash;
     const newTrainer = await new this.trainerModel(createTrainerDto);
     return newTrainer.save();
   }
 
-  async getTrainer(_id): Promise<Trainer> {
+  async findOne(_id): Promise<Trainer> {
     const trainer = await this.trainerModel.findById(_id).exec();
     return trainer;
   }
@@ -31,7 +31,7 @@ export class TrainersService {
     return await this.trainerModel.findOne({ phoneNumber: phoneNumber }).exec();
   }
 
-  async getTrainers(): Promise<Trainer[]> {
+  async findAll(): Promise<Trainer[]> {
     const trainersList = await this.trainerModel.find().exec();
     return trainersList;
   }
