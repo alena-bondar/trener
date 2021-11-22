@@ -8,17 +8,16 @@ import {
   NotFoundException,
   Param,
 } from '@nestjs/common';
-import { TrainersService } from './trainers.service';
-import { CreateTrainerDto } from './dto/create-trainer.dto';
+import { PostService } from './post.service';
+import { CreatePostDto } from './dto/create-post.dto';
 import { ValidateObjectId } from './shared/validate-object-id.pipes';
 
-@Controller('trainers')
-export class TrainersController {
-  //private createTrainerDto: CreateTrainerDto;
-  constructor(private readonly trainersService: TrainersService) {}
+@Controller()
+export class PostController {
+  constructor(private readonly trainersService: PostService) {}
 
-  @Post('/trainer')
-  async addTrainer(@Res() res, @Body() createTrainerDto: CreateTrainerDto) {
+  @Post('trainers')
+  async create(@Res() res, @Body() createTrainerDto: CreatePostDto) {
     const trainerEmail = await this.trainersService.getTrainerByEmail(
       createTrainerDto.email,
     );
@@ -41,25 +40,25 @@ export class TrainersController {
       });
     }
 
-    const newTrainer = await this.trainersService.addTrainer(createTrainerDto);
+    const newTrainer = await this.trainersService.create(createTrainerDto);
     return res.status(HttpStatus.OK).json({
       trainer: newTrainer,
     });
   }
 
-  @Get('trainer/:trainerID')
-  async getPost(
+  @Get('trainers/:ID')
+  async findOne(
     @Res() res,
-    @Param('trainerID', new ValidateObjectId()) trainerID,
+    @Param('ID', new ValidateObjectId()) trainerID,
   ) {
-    const trainer = await this.trainersService.getTrainer(trainerID);
+    const trainer = await this.trainersService.findOne(trainerID);
     if (!trainer) throw new NotFoundException('Trainer does not exist');
     return res.status(HttpStatus.OK).json(trainer);
   }
 
-  @Get('all-trainers')
-  async getTrainers(@Res() res) {
-    const allTrainers = await this.trainersService.getTrainers();
+  @Get('trainers')
+  async findAll(@Res() res) {
+    const allTrainers = await this.trainersService.findAll();
     return res.status(HttpStatus.OK).json(allTrainers);
   }
 }
