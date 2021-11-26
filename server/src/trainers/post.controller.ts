@@ -26,7 +26,7 @@ export class PostController {
     private jwtService: JwtService,
   ) {}
 
-  @Post('/')
+  @Post()
   async create(@Res() res, @Body() createPostDto: CreatePostDto) {
     const trainerEmail = await this.postService.getTrainerByEmail(
       createPostDto.email,
@@ -73,7 +73,6 @@ export class PostController {
     }
     const jwt = await this.jwtService.signAsync({ id: trainer._id });
     res.cookie('jwt', jwt, { httpOnly: true });
-
     return {
       message: 'success',
     };
@@ -104,7 +103,7 @@ export class PostController {
     return res.status(HttpStatus.OK).json(trainer);
   }
 
-  @Get('/')
+  @Get()
   async findAll(@Res() res) {
     const allTrainers = await this.postService.findAll();
     return res.status(HttpStatus.OK).json(allTrainers);

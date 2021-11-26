@@ -18,7 +18,7 @@ export class PostController {
 
   //add data of one sport to the database
 
-  @Post('/')
+  @Post()
   async create(@Res() res, @Body() createPostDto: CreatePostDto) {
     const newSport = await this.kindsOfSportsService.create(createPostDto);
     return res.status(HttpStatus.OK).json({
@@ -37,7 +37,7 @@ export class PostController {
 
   //get all sports
 
-  @Get('/')
+  @Get()
   async findAll(@Res() res) {
     const allKindsOfSports = await this.kindsOfSportsService.findAll();
     return res.status(HttpStatus.OK).json(allKindsOfSports);
