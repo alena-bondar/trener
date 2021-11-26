@@ -1,7 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-
-export type TrainerDocument = Trainer & Document;
 
 @Schema()
 export class Trainer {
@@ -29,4 +26,4 @@ export class Trainer {
   @Prop({ required: true })
   password: string;
 }
-export const PostSchema = SchemaFactory.createForClass(Trainer);
+export const TrainerSchema = SchemaFactory.createForClass(Trainer);

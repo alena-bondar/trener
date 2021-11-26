@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { Transform, TransformFnParams } from 'class-transformer';
 
-export class CreatePostDto {
+export class CreateTrainerDto {
   @IsEmail()
   email: string;
 
