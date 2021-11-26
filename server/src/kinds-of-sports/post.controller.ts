@@ -12,13 +12,13 @@ import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { ValidateObjectId } from './shared/validate-object-id.pipes';
 
-@Controller()
+@Controller('kinds-of-sports')
 export class PostController {
   constructor(private readonly kindsOfSportsService: PostService) {}
 
   //add data of one sport to the database
 
-  @Post('kinds-of-sports')
+  @Post()
   async create(@Res() res, @Body() createPostDto: CreatePostDto) {
     const newSport = await this.kindsOfSportsService.create(createPostDto);
     return res.status(HttpStatus.OK).json({
@@ -28,7 +28,7 @@ export class PostController {
 
   //get sport by id
 
-  @Get('kinds-of-sports/:ID')
+  @Get(':ID')
   async findOne(@Res() res, @Param('ID', new ValidateObjectId()) sportID) {
     const sport = await this.kindsOfSportsService.findOne(sportID);
     if (!sport) throw new NotFoundException('Trainer does not exist');
@@ -37,7 +37,7 @@ export class PostController {
 
   //get all sports
 
-  @Get('kinds-of-sports')
+  @Get()
   async findAll(@Res() res) {
     const allKindsOfSports = await this.kindsOfSportsService.findAll();
     return res.status(HttpStatus.OK).json(allKindsOfSports);
