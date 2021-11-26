@@ -14,6 +14,12 @@ export class Trainer {
   @Prop({ required: true })
   lastName: string;
 
+  @Prop()
+  readonly age: number;
+
+  @Prop()
+  readonly price: number;
+
   @Prop({ required: true })
   sport: string;
 
