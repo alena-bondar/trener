@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PostService } from './post.service';
-import { PostController } from './post.controller';
+import { TrainersService } from './trainers.service';
+import { TrainersController } from './trainers.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PostSchema } from './schemas/post.schema';
+import { TrainerSchema } from './schemas/trainer.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 
@@ -11,13 +11,13 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    MongooseModule.forFeature([{ name: 'Trainer', schema: PostSchema }]),
+    MongooseModule.forFeature([{ name: 'Trainer', schema: TrainerSchema }]),
     JwtModule.register({
       secret: `${process.env.SECRET_KEY}`,
       signOptions: { expiresIn: '1d' },
     }),
   ],
-  controllers: [PostController],
-  providers: [PostService],
+  controllers: [TrainersController],
+  providers: [TrainersService],
 })
 export class TrainersModule {}
