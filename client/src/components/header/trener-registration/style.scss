@@ -1,0 +1,207 @@
+@import "src/styles/variables";
+
+.reg {
+  position: absolute;
+
+  width: 450px;
+
+  border-radius: 4px;
+  box-shadow: 0px 0px 0px 1000px rgba(31, 31, 31, 0.42);
+
+  background-color: white;
+
+  top: 150%;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 2px solid #1c5459;
+
+    background-color: $turquoise;
+    height: 50px;
+  }
+
+  &__tittle {
+    text-transform: uppercase;
+    font-size: 22px;
+    text-align: center;
+    color: white;
+    font-family: Ubuntu, sans-serif;
+  }
+
+  &__close-btn {
+    position: absolute;
+    right: 10px;
+    background-color: inherit;
+    font-size: 22px;
+    border: none;
+    color: white;
+  }
+
+  &__form {
+    padding: 30px 20px 30px 50px;
+  }
+
+  &__inlet {
+    display: flex;
+    flex-wrap: wrap;
+
+    position: relative;
+
+    &--for-two {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &--for-age-price {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  &__info-text {
+    position: relative;
+    bottom: 15px;
+
+    margin-bottom: 15px;
+    color: $placeholder-grey;
+    font-family: Ubuntu, sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  &__by {
+    display: flex;
+    justify-content: space-between;
+
+    &__netw {
+      display: block;
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+      border-radius: 4px;
+
+      height: 40px;
+      width: 178px;
+
+      &--facebook {
+        background-image: url(../../../images/facebook-on-form.png);
+        background-color: #3b5998;
+      }
+
+      &--google {
+        background-image: url(../../../images/google-on-form.png);
+        background-color: #dd4b39;
+      }
+    }
+  }
+
+  &__choice-text {
+    margin: 7px 0;
+    text-align: center;
+    color: $placeholder-grey;
+
+    font-family: Ubunty, sans-serif;
+    font-weight: 300;
+  }
+
+  &__icon {
+    color: $turquoise;
+
+    position: absolute;
+    left: 10px;
+
+    &--down {
+      margin-top: 5px;
+    }
+
+    &--dollar {
+      position: relative;
+      //left: 40px;
+    }
+  }
+}
+
+.option {
+  font-family: Ubunty, sans-serif;
+  color: #d5d1d1;
+}
+
+.input {
+  height: 40px;
+  width: 100%;
+
+  border: 1px solid #999;
+  border-radius: 4px;
+
+  margin-bottom: 20px;
+  padding: 0 30px 0 15px;
+
+  font-family: Ubunty, sans-serif;
+
+  font-size: 18px;
+  line-height: 40px;
+  color: $placeholder-grey;
+
+  &--short {
+    width: 140px
+  }
+
+  &--code {
+    width: 65px;
+    padding: 0;
+
+    text-align: center;
+
+    &::placeholder {
+      font-family: Ubunty, sans-serif;
+    }
+  }
+
+  &--num {
+    width: 250px;
+  }
+
+  &--price{
+    width: 100px;
+  }
+
+  &::placeholder {
+    color: #d5d1d1;
+  }
+}
+
+.registration-btn {
+  width: 100%;
+  height: 40px;
+
+  color: white;
+  font-size: 18px;
+  font-family: Ubunty, sans-serif;
+  font-weight: 400;
+
+  border: none;
+  border-radius: 4px;
+  background-color: $orange;
+
+  transition: 0.4s;
+
+  &:hover {
+    box-shadow: 0px 1px 10px 4px rgba(34, 60, 80, 0.2);
+  }
+}
+
+.error {
+  position: absolute;
+  top: -15px;
+  font-family: Ubuntu, sans-serif;
+  font-size: 12px;
+  color: $orange;
+
+  &--up {
+    top: -30px;
+  }
+}

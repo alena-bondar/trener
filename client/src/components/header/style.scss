@@ -1,4 +1,4 @@
-@import "src/styles/variables";
+@import '../../styles/variables';
 
 .header-wrapper {
   display: flex;
@@ -64,7 +64,7 @@
 
   margin-right: 10px;
   padding-left: 20px;
-  border-left: 1px solid $Gray77;
+  border-left: 1px solid $silver;
 
   &__link {
     text-decoration: none;
@@ -90,9 +90,9 @@
 
   height: 48px;
   background-color: inherit;
-  border: 1px solid #2f8e97;
+  border: 1px solid $turquoise;
   border-radius: 3px;
-  color: #2f8e97;
+  color: $turquoise;
   transition: 0.3s;
   padding: 20px 20px 20px 70px;
 
@@ -112,4 +112,8 @@
   width: 22px;
 
   fill: grey;
+}
+
+.content {
+  height: 1000px;
 }
