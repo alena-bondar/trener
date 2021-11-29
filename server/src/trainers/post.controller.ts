@@ -8,7 +8,6 @@ import {
   NotFoundException,
   Param,
   BadRequestException,
-  Request,
   Req,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -58,7 +57,7 @@ export class PostController {
 
   @Post('login')
   async login(
-    @Request() req,
+    @Req() req,
     @Res({ passthrough: true }) res,
     @Body() createAuthDto: CreateAuthDto,
   ) {
@@ -74,7 +73,7 @@ export class PostController {
     const jwt = await this.jwtService.signAsync({ id: trainer._id });
     res.cookie('jwt', jwt, { httpOnly: true });
     return {
-      message: 'success',
+      message: 'successful login',
     };
   }
 
@@ -86,14 +85,23 @@ export class PostController {
       const data = await this.jwtService.verifyAsync(cookie);
 
       if (!data) {
-        new UnauthorizedException();
+        throw new UnauthorizedException();
       }
       const trainerId = await this.postService.findOne(data['id']);
 
       return trainerId;
     } catch (e) {
-      new UnauthorizedException();
+      throw new UnauthorizedException();
     }
+  }
+
+  @Post('logout')
+  async logout(@Res({ passthrough: true }) res) {
+    res.clearCookie('jwt');
+
+    return {
+      message: 'successful logout',
+    };
   }
 
   @Get(':ID')
