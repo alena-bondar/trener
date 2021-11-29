@@ -4,15 +4,15 @@
     display: none;
 }
 
-#form-login {
+#form-login, #registration {
     width: 200px;
 }
 
-.login, .logout {
+.login, .logout, .send {
     width: 70px;
 }
 
-label, input, .success-login, .logout {
+label, input, .success-login, .logout, p {
     font-family: 'Roboto', sans-serif;
     margin: 10px;
 }
@@ -22,6 +22,8 @@ input, .logout {
     height: 30px;
     border: 1px solid #c0c0c0;
 }
+
+
 
 
 
