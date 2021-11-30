@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  setChoicedCity: any;
+  setSelectedCity: Dispatch<SetStateAction<string>>;
 };
 
-export const SelectCity: React.FC<Props> = ({ setChoicedCity }) => {
+export const SelectCity: React.FC<Props> = ({ setSelectedCity }) => {
   return <div></div>;
 };

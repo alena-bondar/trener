@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  setSelectedLanguage: any;
+  setSelectedLanguage: Dispatch<SetStateAction<string>>;
 };
 
 export const SelectLanguage: React.FC<Props> = ({ setSelectedLanguage }) => {

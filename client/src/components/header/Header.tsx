@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { SelectCity } from './SelectCity';
 import { SelectLanguage } from './SelectLanguage';
 import './style.scss';
+import { TrenerRegistration } from './trener-registration/TrenerRegistration';
 
 export const Header: React.FC = () => {
-  const [selectedCity, setSelectedCity] = useState('Київ');
-  const [selectedLanguage, setSelectedLanguage] = useState('українська');
+  const [selectedCity, setSelectedCity] = useState<string>('Київ');
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('українська');
+  const [showRegistration, setShowRegistration] = useState<boolean>(false);
 
   return (
     <div className="header-wrapper">
       <div className="chose-container">
-        <div className="logo"></div>
+        <div className="logo" />
+
         <span className="text">
           Ваше місто:&nbsp;&nbsp;
           <a href="" className="text__link text--300">
@@ -18,7 +21,7 @@ export const Header: React.FC = () => {
           </a>
         </span>
 
-        {false && <SelectCity setChoicedCity={setSelectedCity} />}
+        {false && <SelectCity setSelectedCity={setSelectedCity} />}
 
         <span className="text text__language">
           Мова:&nbsp;&nbsp;
@@ -37,11 +40,16 @@ export const Header: React.FC = () => {
           <button className="enter-button text text--300">Увійти</button>
         </div>
 
-        <button className="registration-button text text--300">
+        <button
+          onClick={() => setShowRegistration(true)}
+          className="registration-button text text--300"
+        >
           <span className="plus-icon"> </span>
           Реєстрація тренера
         </button>
       </div>
+
+      {showRegistration && <TrenerRegistration setShowRegistration={setShowRegistration} />}
     </div>
   );
 };
