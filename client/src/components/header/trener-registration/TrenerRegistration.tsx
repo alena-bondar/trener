@@ -7,7 +7,7 @@ import { fetchKindsOfSports } from '../../../api/fetchKindsOfSports';
 import { validationSchema } from '../../../helpers/validationShema';
 import { fullNameMessage } from '../../../helpers/fullNameMessage';
 
-import sendData from '../../../api/sendData';
+import createUser from '../../../api/createUser';
 import kindsOfSport from '../../../types/kindsOfSports';
 
 import './style.scss';
@@ -31,14 +31,12 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
   });
 
   const onSubmit = (data: FormData) => {
-    sendData(JSON.stringify(data, null, 2));
+    createUser(JSON.stringify(data, null, 2));
     reset();
   };
 
   const onFetchKindsOfSports = async () => {
     const { error, data } = await fetchKindsOfSports();
-
-    console.log(data);
 
     if (!error) setKindsOfSport(data);
   };

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from '../services/BASE_URL';
 
-function sendData(data: string): void {
+function createUser(data: string): void {
   axios
     .post(`${BASE_URL}/trainers`, {
       title: 'Trener added',
@@ -10,4 +10,4 @@ function sendData(data: string): void {
     .then(() => alert('Тренер добавлений'))
     .catch((error) => alert('Помилка, тренер не добавлений ') + error);
 }
-export default sendData;
+export default createUser;

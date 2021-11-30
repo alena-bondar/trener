@@ -5,6 +5,8 @@
 # dependencies
 client/node_modules
 client/dist
+client/.env
+client/.DS_Store
 
 # testing
 client/coverage
