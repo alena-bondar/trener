@@ -5,9 +5,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TrainersModule } from './trainers/trainers.module';
 import { ConfigModule } from '@nestjs/config';
 import { KindsOfSportsModule } from './kinds-of-sports/kinds-of-sports.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'static'),
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),

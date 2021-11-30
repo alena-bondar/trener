@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+#form-login, .logout {
+    display: none;
+}
+
+#form-login, #registration {
+    width: 200px;
+}
+
+.login, .logout, .send {
+    width: 70px;
+}
+
+label, input, .success-login, .logout, p, #sport {
+    font-family: 'Roboto', sans-serif;
+    margin: 10px;
+}
+
+input, .logout, #sport  {
+    font-size: 16px;
+    height: 30px;
+    border: 1px solid #c0c0c0;
+}
+
+#sport {
+    background-color: white;
+}
+
+
+
+
+

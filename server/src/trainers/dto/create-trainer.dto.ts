@@ -57,7 +57,6 @@ export class CreateTrainerDto {
   phoneNumber: string;
 
   @IsNotEmpty()
-  @Transform(({ value }: TransformFnParams) => value.trim())
   @MinLength(6, {
     message: 'Password is too short. Minimal length is 6 characters',
   })
