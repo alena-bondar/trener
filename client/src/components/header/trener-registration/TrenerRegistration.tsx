@@ -1,16 +1,14 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormData } from '../../../types/FormData';
-import { localKinsOfSports, getKinsOfSports } from '../../../api/kindsOfSport';
+import { fetchKindsOfSports } from '../../../api/fetchKindsOfSports';
 import { validationSchema } from '../../../helpers/validationShema';
-import { nameSurname } from '../../../helpers/nameSurname';
+import { fullNameMessage } from '../../../helpers/fullNameMessage';
 
-import getData from '../../../api/getSports'
-import sendData from '../../../api/sendData'
-import  kindsOfSport from '../../../types/kindsOfSports'
-
+import sendData from '../../../api/sendData';
+import kindsOfSport from '../../../types/kindsOfSports';
 
 import './style.scss';
 
@@ -19,7 +17,7 @@ type Props = {
 };
 
 export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => {
-  const [kindsOfSport, setKindsOfSport ] = useState<kindsOfSport[] | []>([]);
+  const [kindsOfSport, setKindsOfSport] = useState<kindsOfSport[] | []>([]);
 
   const {
     register,
@@ -34,13 +32,20 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
 
   const onSubmit = (data: FormData) => {
     sendData(JSON.stringify(data, null, 2));
-    reset()
+    reset();
   };
 
-useEffect(() => {
-  getData(getKinsOfSports, setKindsOfSport, localKinsOfSports);
-}, [])
+  const onFetchKindsOfSports = async () => {
+    const { error, data } = await fetchKindsOfSports();
 
+    console.log(data);
+
+    if (!error) setKindsOfSport(data);
+  };
+
+  useEffect(() => {
+    onFetchKindsOfSports();
+  }, []);
 
   return (
     <div className="reg">
@@ -65,7 +70,9 @@ useEffect(() => {
           <div className="reg__inlet reg__inlet--for-two">
             <div className="reg__form__name">
               <div className="error">
-                <span>{nameSurname(watch) ? nameSurname(watch) : errors.name?.message}</span>
+                <span>
+                  {fullNameMessage(watch) ? fullNameMessage(watch) : errors.name?.message}
+                </span>
               </div>
               <input
                 type="text"

@@ -1,13 +1,13 @@
 import axios from 'axios';
-import BASE_URL from './BASE_URL';
-// import KinsOfSports from '../types/kindsOfSports';
+import { BASE_URL } from '../services/BASE_URL';
 
 function sendData(data: string): void {
-    axios.post(`${BASE_URL}/trainers`, {
-        title: "Trener added",
-        body: data
+  axios
+    .post(`${BASE_URL}/trainers`, {
+      title: 'Trener added',
+      body: data,
     })
-        .then(() => alert('Тренер добавлений'))
-        .catch(error =>  alert('Помилка, тренер добавлений ') + error);
+    .then(() => alert('Тренер добавлений'))
+    .catch((error) => alert('Помилка, тренер не добавлений ') + error);
 }
-export default sendData
+export default sendData;
