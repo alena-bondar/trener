@@ -12,15 +12,21 @@
     width: 70px;
 }
 
-label, input, .success-login, .logout, p {
+label, input, .success-login, .logout, p, #sport {
     font-family: 'Roboto', sans-serif;
     margin: 10px;
 }
 
-input, .logout {
+input, .logout, #sport  {
     font-size: 16px;
     height: 30px;
     border: 1px solid #c0c0c0;
+}
+
+#sport {
+    background-color: white;
+    width: 208px;
+    height: 34px;
 }
 
 

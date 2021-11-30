@@ -15,7 +15,8 @@
     <label for="lastName">last name</label>
     <input type="text" id="lastName" name="lastName">
     <label for="sport">sport</label>
-    <input type="text" id="sport" name="sport">
+    <select name="sport" id="sport" form="registration">
+    </select>
     <label for="phone">phone number</label>
     <input type="tel" id="phone" name="phoneNumber">
     <label for="pass">password</label>
@@ -29,6 +30,7 @@
 
     const formRegistration = document.querySelector('#registration');
     const successRegister = document.querySelector('.success-register');
+    const selectSport = document.querySelector('#sport');
 
     const api = axios.create({baseURL: 'http://localhost:3000'});
 
@@ -51,9 +53,19 @@
                 console.log(response);
                 formRegistration.style.display = 'none';
                 successRegister.innerHTML = `Registration successful, ${response.data.trainer.name} ${response.data.trainer.lastName}`;
-            })
+            }).catch((response) => {
+               alert(response.response.data.message.join('!'))
+        })
     }
 
+    api.get('kinds-of-sports')
+    .then((response) => {
+        let content = '';
+        response.data.map(sport => {
+             content += `<option value=${sport.label}>${sport.label}</option>`
+        })
+        selectSport.innerHTML = content;
+    })
 
 </script>
 </body>

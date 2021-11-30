@@ -39,7 +39,6 @@
             console.log(response.data);
             formLogin.style.display = 'block';
             logout.style.display = 'none';
-
         })
 
     formLogin.onsubmit = (e) => {
@@ -61,7 +60,9 @@
                         successLogin.innerHTML = `Hello, ${response.data.name} ${response.data.lastName}`;
 
                     })
-            })
+            }).catch((error) => {
+            alert(error.response.data.message)
+        })
     }
 
     logout.onclick = () => {
