@@ -11,44 +11,45 @@ import {
   Req,
   UnauthorizedException,
 } from '@nestjs/common';
-import { PostService } from './post.service';
-import { CreatePostDto } from './dto/create-post.dto';
+import { TrainersService } from './trainers.service';
+import { CreateTrainerDto } from './dto/create-trainer.dto';
 import { ValidateObjectId } from './shared/validate-object-id.pipes';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Controller('trainers')
-export class PostController {
+export class TrainersController {
   constructor(
-    private readonly postService: PostService,
+    private readonly trainersService: TrainersService,
     private jwtService: JwtService,
   ) {}
 
   @Post()
-  async create(@Res() res, @Body() createPostDto: CreatePostDto) {
-    const trainerEmail = await this.postService.getTrainerByEmail(
-      createPostDto.email,
+  async create(@Res() res, @Body() createTrainerDto: CreateTrainerDto) {
+    const trainerEmail = await this.trainersService.getTrainerByEmail(
+      createTrainerDto.email,
     );
-    if (trainerEmail && trainerEmail.email === createPostDto.email) {
+    if (trainerEmail && trainerEmail.email === createTrainerDto.email) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Failed! Email is already in use!',
       });
     }
 
-    const trainerPhoneNumber = await this.postService.getTrainerByPhoneNumber(
-      createPostDto.phoneNumber,
-    );
+    const trainerPhoneNumber =
+      await this.trainersService.getTrainerByPhoneNumber(
+        createTrainerDto.phoneNumber,
+      );
     if (
       trainerPhoneNumber &&
-      trainerPhoneNumber.phoneNumber === createPostDto.phoneNumber
+      trainerPhoneNumber.phoneNumber === createTrainerDto.phoneNumber
     ) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Failed! Phone number is already in use!',
       });
     }
 
-    const newTrainer = await this.postService.create(createPostDto);
+    const newTrainer = await this.trainersService.create(createTrainerDto);
 
     return res.status(HttpStatus.OK).json({
       trainer: newTrainer,
@@ -61,7 +62,7 @@ export class PostController {
     @Res({ passthrough: true }) res,
     @Body() createAuthDto: CreateAuthDto,
   ) {
-    const trainer = await this.postService.getTrainerByEmail(
+    const trainer = await this.trainersService.getTrainerByEmail(
       createAuthDto.email,
     );
     if (!trainer) {
@@ -87,7 +88,7 @@ export class PostController {
       if (!data) {
         throw new UnauthorizedException();
       }
-      const trainerId = await this.postService.findOne(data['id']);
+      const trainerId = await this.trainersService.findOne(data['id']);
 
       return trainerId;
     } catch (e) {
@@ -106,14 +107,14 @@ export class PostController {
 
   @Get(':ID')
   async findOne(@Res() res, @Param('ID', new ValidateObjectId()) trainerID) {
-    const trainer = await this.postService.findOne(trainerID);
+    const trainer = await this.trainersService.findOne(trainerID);
     if (!trainer) throw new NotFoundException('Trainer does not exist');
     return res.status(HttpStatus.OK).json(trainer);
   }
 
   @Get()
   async findAll(@Res() res) {
-    const allTrainers = await this.postService.findAll();
+    const allTrainers = await this.trainersService.findAll();
     return res.status(HttpStatus.OK).json(allTrainers);
   }
 }

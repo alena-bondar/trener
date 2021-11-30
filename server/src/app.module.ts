@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TrainersModule } from './trainers/trainers.module';
 import { ConfigModule } from '@nestjs/config';
-import { SportModule } from './kinds-of-sports/sport.module';
+import { KindsOfSportsModule } from './kinds-of-sports/kinds-of-sports.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -21,7 +21,7 @@ import { join } from 'path';
         uri: `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`,
       }),
     }),
-    SportModule,
+    KindsOfSportsModule,
     TrainersModule,
   ],
   controllers: [AppController],

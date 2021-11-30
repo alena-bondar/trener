@@ -1,4 +1,4 @@
-import { KindOfSport } from '../interfaces/post.interface';
+import { KindOfSport } from '../interfaces/sport.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';

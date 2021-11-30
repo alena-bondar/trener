@@ -3,10 +3,11 @@ import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
 import './styles/main.scss';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
+      <div className="content"></div>
       <Footer />
     </div>
   );

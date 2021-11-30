@@ -1,19 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
+import { CreateSportDto } from './dto/create-sport.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { KindOfSport } from './interfaces/post.interface';
+import { KindOfSport } from './interfaces/sport.interface';
 
 @Injectable()
-export class PostService {
+export class KindsOfSportsService {
   constructor(
     @InjectModel('KindOfSport') private readonly sportModel: Model<KindOfSport>,
   ) {}
 
-  async create(
-      createPostDto: CreatePostDto,
-  ): Promise<KindOfSport> {
-    const newSport = await new this.sportModel(createPostDto);
+  async create(createSportDto: CreateSportDto): Promise<KindOfSport> {
+    const newSport = await new this.sportModel(createSportDto);
     return newSport.save();
   }
 
