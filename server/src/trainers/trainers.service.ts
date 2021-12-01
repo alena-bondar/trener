@@ -35,4 +35,14 @@ export class TrainersService {
     const trainersList = await this.trainerModel.find().exec();
     return trainersList;
   }
+
+  async filterTreners(queryParam): Promise<Trainer[]> {
+    const trainersList = await this.trainerModel.find().exec();
+    const splitQuery = queryParam.split(',');
+    const filteredList = trainersList.filter((trener) =>
+      splitQuery.includes(trener.sport),
+    );
+
+    return filteredList;
+  }
 }
