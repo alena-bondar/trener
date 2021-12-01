@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Body,
+  Query,
   Res,
   HttpStatus,
   NotFoundException,
@@ -10,6 +11,8 @@ import {
   BadRequestException,
   Req,
   UnauthorizedException,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { TrainersService } from './trainers.service';
 import { CreateTrainerDto } from './dto/create-trainer.dto';
@@ -94,6 +97,14 @@ export class TrainersController {
     } catch (e) {
       throw new UnauthorizedException();
     }
+  }
+
+  @Get('filter')
+  @UsePipes(new ValidationPipe())
+  async filterTreners(@Query('sport') sport: string, @Res() res) {
+    const filteredList = await this.trainersService.filterTreners(sport);
+
+    return res.status(HttpStatus.OK).json(filteredList);
   }
 
   @Post('logout')
