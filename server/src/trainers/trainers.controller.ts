@@ -20,6 +20,7 @@ import { ValidateObjectId } from './shared/validate-object-id.pipes';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { query } from 'express';
 
 @Controller('trainers')
 export class TrainersController {
@@ -101,8 +102,20 @@ export class TrainersController {
 
   @Get('filter')
   @UsePipes(new ValidationPipe())
-  async filterTreners(@Query('sport') sport: string, @Res() res) {
-    const filteredList = await this.trainersService.filterTreners(sport);
+  async filterTreners(
+    @Query('sport')
+    sport: string,
+    @Query('priceFrom')
+    priceFrom: number,
+    @Query('priceTo')
+    priceTo: number,
+    @Res() res,
+  ) {
+    const filteredList = await this.trainersService.filterTreners(
+      sport,
+      priceFrom,
+      priceTo,
+    );
 
     return res.status(HttpStatus.OK).json(filteredList);
   }

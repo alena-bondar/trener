@@ -36,11 +36,19 @@ export class TrainersService {
     return trainersList;
   }
 
-  async filterTreners(queryParam): Promise<Trainer[]> {
+  async filterTreners(
+    sport,
+    priceFrom = 0,
+    priceTo = 9999,
+  ): Promise<Trainer[]> {
     const trainersList = await this.trainerModel.find().exec();
-    const splitQuery = queryParam.split(',');
-    const filteredList = trainersList.filter((trener) =>
-      splitQuery.includes(trener.sport),
+    const splitQuery = sport.split(',');
+
+    const filteredList = trainersList.filter(
+      (trener) =>
+        splitQuery.includes(trener.sport) &&
+        trener.price >= priceFrom &&
+        trener.price <= priceTo,
     );
 
     return filteredList;
