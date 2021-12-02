@@ -7,6 +7,9 @@ import {
   Res,
   HttpStatus,
   NotFoundException,
+  UsePipes,
+  ValidationPipe,
+  Query,
 } from '@nestjs/common';
 import { KindsOfSportsService } from './kinds-of-sports.service';
 import { CreateSportDto } from './dto/create-sport.dto';
@@ -24,6 +27,16 @@ export class KindsOfSportsController {
     return res.status(HttpStatus.OK).json({
       sport: newSport,
     });
+  }
+
+  @Get('filter')
+  @UsePipes(new ValidationPipe())
+  async filterSports(@Query('search') searchParam: string, @Res() res) {
+    const filteredSport = await this.kindsOfSportsService.findFilteredSport(
+      searchParam,
+    );
+
+    return res.status(HttpStatus.OK).json(filteredSport);
   }
 
   //get sport by id

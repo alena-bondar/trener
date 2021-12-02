@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.content {
+  margin: 0 auto;
+  width: 1200px;
+}
+
+.treners-city-text {
+  color: grey;
+  padding: 12px 30px;
+
+  @include font;
+}
+
+.parametrs {
+  display: inline-block;
+
+  width: 285px;
+}
+
+.showing-treners {
+  display: inline-block;
+
+  background-color: #b3d4fc;
+}

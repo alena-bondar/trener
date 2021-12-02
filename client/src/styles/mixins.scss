@@ -1,0 +1,17 @@
+@mixin font {
+  font-family: Ubuntu, sans-serif;
+  font-size: 14px;
+}
+
+@mixin shadow {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+@mixin icon-png {
+  position: absolute;
+
+  top: 50%;
+  right: 10px;
+  width: 13px;
+  height: 13px;
+}

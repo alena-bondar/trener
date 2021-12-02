@@ -1,6 +1,7 @@
-type KinsOfSports = {
-    value: string;
-    label: string;
-}
+type KindsOfSports = {
+  _id?: string;
+  value: string;
+  label: string;
+};
 
-export default KinsOfSports;
+export default KindsOfSports;

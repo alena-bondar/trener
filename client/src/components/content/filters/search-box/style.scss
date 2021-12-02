@@ -1,0 +1,37 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/mixins";
+
+.searchResult {
+  box-sizing: border-box;
+  position: absolute;
+
+  top: 93px;
+
+  overflow-y: auto;
+
+  width: 225px;
+  max-height: 225px;
+
+  background-color: white;
+
+  border: 1px solid $placeholder-grey;
+  border-top: none;
+
+  &__li {
+    padding: 3px 15px;
+    border-bottom: 1px solid $iceberg;
+
+    list-style: none;
+  }
+
+  &__text {
+    @include font;
+    font-size: 16px;
+
+    cursor: pointer;
+  }
+}
+
+.decorated-text {
+  color: $turquoise;
+}
