@@ -1,12 +1,14 @@
 import axios from "axios";
 // import { Dispatch, SetStateAction } from "react";
 import { BASE_URL } from "../services/BASE_URL";
+import React, { Dispatch } from "react";
+import KindsOfSports from "../types/kindsOfSports";
 
 // import KindsOfSports from "../types/kindsOfSports";
 
 export async function fetchFilteredSports(
   searchParam: string,
-  setData: any // Dispatch<SetStateAction<{ data: KindsOfSports[] }>>
+  setData: Dispatch<React.SetStateAction<[] | KindsOfSports[]>>
 ): Promise<void> {
   if (searchParam === "") {
     return;

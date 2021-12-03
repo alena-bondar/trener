@@ -13,8 +13,7 @@ export default function useComponentVisible(
     useState(initialIsVisible);
   const refer = useRef<HTMLHeadingElement>(null);
 
-  const handleClickOutside = (event: { target: any }) => {
-    console.log(event.target);
+  const handleClickOutside = (event: any): void => {
     if (refer.current && !refer.current.contains(event.target)) {
       setIsComponentVisible(false);
     }

@@ -8,7 +8,7 @@ import SearchBox from "./search-box/SearchBox";
 import "./style.scss";
 import useComponentVisible from "../../../services/useComponentVisible";
 
-export const Filters: React.FC = (): any => {
+export const Filters: React.FC = (): JSX.Element => {
   const [searchParam, setSearchParams] = useState<string>("");
   const [appliedQuery, setAppliedQuery] = useState<string>("");
   const { refer, isComponentVisible, setIsComponentVisible } =

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../services/BASE_URL";
 
-export const fetchTreners = async (data: string) => {
+export const fetchTreners = async (data: string): Promise<void> => {
   if (data.length === 0) {
     return;
   }

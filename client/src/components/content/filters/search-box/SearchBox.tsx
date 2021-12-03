@@ -1,16 +1,16 @@
-import React from "react";
+import React, { Dispatch, RefObject } from "react";
 import "./style.scss";
 import { editText } from "../../../../helpers/editText";
 import KindsOfSports from "../../../../types/kindsOfSports";
 
 type Props = {
   sports: KindsOfSports[];
-  setSearchParams: any;
-  setAppliedQuery: any;
+  setSearchParams: Dispatch<React.SetStateAction<string>>;
+  setAppliedQuery: Dispatch<React.SetStateAction<string>>;
   searchText: string;
-  setFilteredSearch: any;
+  setFilteredSearch: Dispatch<React.SetStateAction<[] | KindsOfSports[]>>;
   isComponentVisible: boolean;
-  refer: any;
+  refer: RefObject<HTMLHeadingElement>;
 };
 
 const SearchBox: React.FC<Props> = ({
