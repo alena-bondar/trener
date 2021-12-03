@@ -17,6 +17,7 @@ import { ValidateObjectId } from './shared/validate-object-id.pipes';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { OAuth2Client } from 'google-auth-library';
 
 @Controller('trainers')
 export class TrainersController {
@@ -88,12 +89,40 @@ export class TrainersController {
       if (!data) {
         throw new UnauthorizedException();
       }
-      const trainerId = await this.trainersService.findOne(data['id']);
+      const trainer = await this.trainersService.findOne(data['id']);
 
-      return trainerId;
+      return trainer;
     } catch (e) {
       throw new UnauthorizedException();
     }
+  }
+
+  @Post('google-login')
+  async loginGoogle(
+    @Req() req,
+    @Res({ passthrough: true }) res,
+    @Body() createAuthDto: CreateAuthDto,
+  ) {
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.tokenId,
+    });
+    const payload = ticket.getPayload();
+
+    console.log(payload);
+
+    const trainer = await this.trainersService.getTrainerByEmail(payload.email);
+    if (!trainer) {
+      throw new BadRequestException('Trainer not found');
+    }
+
+    const jwt = await this.jwtService.signAsync({ id: trainer._id });
+    res.cookie('jwt', jwt, { httpOnly: true });
+
+    return {
+      message: 'successful login',
+      //trainer: trainer,
+    };
   }
 
   @Post('logout')

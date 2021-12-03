@@ -7,7 +7,6 @@ import {
   Min,
   MinLength,
 } from 'class-validator';
-import { Transform, TransformFnParams } from 'class-transformer';
 
 export class CreateTrainerDto {
   @IsEmail()
@@ -31,20 +30,20 @@ export class CreateTrainerDto {
 
   sport: string;
 
-  @Min(16, {
+  /*@Min(16, {
     message: 'Minimum age of a trainer is 16 years',
   })
   @Max(80, {
     message: 'Maximum age of a trainer is 80 years',
-  })
+  })*/
   age: number;
 
-  @Min(0, {
+  /*@Min(0, {
     message: 'Cost cannot be less than 0',
   })
   @Max(1000, {
     message: 'Cost cannot be more than 1000',
-  })
+  })*/
   price: number;
 
   @IsMobilePhone()

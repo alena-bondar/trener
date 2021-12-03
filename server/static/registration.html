@@ -24,7 +24,6 @@
     <input type="submit" value="send" class="send">
 </form>
 <div class="success-register">
-
 </div>
 <script>
 
@@ -52,9 +51,10 @@
             .then((response) => {
                 console.log(response);
                 formRegistration.style.display = 'none';
+                console.log(response.data.trainer.age);
                 successRegister.innerHTML = `Registration successful, ${response.data.trainer.name} ${response.data.trainer.lastName}`;
             }).catch((response) => {
-               alert(response.response.data.message.join('!'))
+                alert(response.response.data.message.join('!'))
         })
     }
 
