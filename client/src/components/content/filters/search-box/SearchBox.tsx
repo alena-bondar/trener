@@ -8,6 +8,9 @@ type Props = {
   setSearchParams: any;
   setAppliedQuery: any;
   searchText: string;
+  setFilteredSearch: any;
+  isComponentVisible: boolean;
+  refer: any;
 };
 
 const SearchBox: React.FC<Props> = ({
@@ -15,32 +18,45 @@ const SearchBox: React.FC<Props> = ({
   searchText,
   setSearchParams,
   setAppliedQuery,
-}) => (
-  <div className="searchResult">
-    <ul>
-      {sports.map((sport: { value: string; label: string }) => {
-        const { label, value } = sport;
-        const [firstPart, several, secondPart] = editText(label, searchText);
+  setFilteredSearch,
+  isComponentVisible,
+  refer,
+}) => {
+  return (
+    <>
+      {isComponentVisible && (
+        <div className="searchResult" ref={refer}>
+          <ul>
+            {sports.map((sport: { value: string; label: string }) => {
+              const { label, value } = sport;
+              const [firstPart, several, secondPart] = editText(
+                label,
+                searchText
+              );
 
-        return (
-          <li
-            onClick={() => {
-              setSearchParams(label);
-              setAppliedQuery("");
-            }}
-            className="searchResult__li"
-            key={value}
-          >
-            <span className="searchResult__text">
-              {firstPart}
-              <span className="decorated-text">{several.trim()}</span>
-              {secondPart}
-            </span>
-          </li>
-        );
-      })}
-    </ul>
-  </div>
-);
+              return (
+                <li
+                  onClick={() => {
+                    setSearchParams(label);
+                    setAppliedQuery("");
+                    setFilteredSearch([]);
+                  }}
+                  className="searchResult__li"
+                  key={value}
+                >
+                  <span className="searchResult__text">
+                    {firstPart}
+                    <span className="decorated-text">{several.trim()}</span>
+                    {secondPart}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+    </>
+  );
+};
 
 export default React.memo(SearchBox);

@@ -1,15 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
-import SearchBox from "./search-box/SearchBox";
 import { debounce } from "../../../services/debounce";
 import { fetchFilteredSports } from "../../../api/fetchFilteredSports";
 import { fetchTreners } from "../../../api/fetchTreners";
 
-import "./style.scss";
 import KindsOfSports from "../../../types/kindsOfSports";
+import SearchBox from "./search-box/SearchBox";
+import "./style.scss";
+import useComponentVisible from "../../../services/useComponentVisible";
 
-export const Filters: React.FC = () => {
+export const Filters: React.FC = (): any => {
   const [searchParam, setSearchParams] = useState<string>("");
   const [appliedQuery, setAppliedQuery] = useState<string>("");
+  const { refer, isComponentVisible, setIsComponentVisible } =
+    useComponentVisible(true);
   const [filteredSearch, setFilteredSearch] = useState<KindsOfSports[] | []>(
     []
   );
@@ -27,6 +30,7 @@ export const Filters: React.FC = () => {
         <div className="filters__container">
           <input
             value={searchParam}
+            onClick={() => setIsComponentVisible(true)}
             onChange={(e) => {
               setSearchParams(e.target.value);
               applyQuery(e.target.value);
@@ -36,11 +40,12 @@ export const Filters: React.FC = () => {
             placeholder="Вид спорту, або клуб"
           />
 
-          {(searchParam && (
+          {(searchParam && isComponentVisible && (
             <img
               onClick={() => {
                 setAppliedQuery("");
                 setSearchParams("");
+                setFilteredSearch([]);
               }}
               className="arrow-img cross"
               src="/images/cross.svg"
@@ -61,6 +66,9 @@ export const Filters: React.FC = () => {
             searchText={appliedQuery}
             setSearchParams={setSearchParams}
             setAppliedQuery={setAppliedQuery}
+            setFilteredSearch={setFilteredSearch}
+            isComponentVisible={isComponentVisible}
+            refer={refer}
           />
         )}
 

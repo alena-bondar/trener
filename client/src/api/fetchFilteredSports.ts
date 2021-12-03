@@ -19,7 +19,5 @@ export async function fetchFilteredSports(
   const searchUrl = `${BASE_URL}/kinds-of-sports/filter?search=${searchParam}`;
   const searchRequest = await axios.get(searchUrl);
 
-  console.log(searchRequest);
-
   setData(searchRequest.data);
 }
