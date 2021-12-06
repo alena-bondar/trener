@@ -8,19 +8,19 @@ import {
   HttpStatus,
   NotFoundException,
 } from '@nestjs/common';
-import { PostService } from './post.service';
-import { CreatePostDto } from './dto/create-post.dto';
+import { KindsOfSportsService } from './kinds-of-sports.service';
+import { CreateSportDto } from './dto/create-sport.dto';
 import { ValidateObjectId } from './shared/validate-object-id.pipes';
 
 @Controller('kinds-of-sports')
-export class PostController {
-  constructor(private readonly kindsOfSportsService: PostService) {}
+export class KindsOfSportsController {
+  constructor(private readonly kindsOfSportsService: KindsOfSportsService) {}
 
   //add data of one sport to the database
 
   @Post()
-  async create(@Res() res, @Body() createPostDto: CreatePostDto) {
-    const newSport = await this.kindsOfSportsService.create(createPostDto);
+  async create(@Res() res, @Body() createSportDto: CreateSportDto) {
+    const newSport = await this.kindsOfSportsService.create(createSportDto);
     return res.status(HttpStatus.OK).json({
       sport: newSport,
     });

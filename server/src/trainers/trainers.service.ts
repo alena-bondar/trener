@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
+import { CreateTrainerDto } from './dto/create-trainer.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Trainer } from './interfaces/post.interface';
+import { Trainer } from './interfaces/trainer.interface';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class PostService {
+export class TrainersService {
   constructor(
     @InjectModel('Trainer') private readonly trainerModel: Model<Trainer>,
   ) {}
 
-  async create(createTrainerDto: CreatePostDto): Promise<Trainer> {
+  async create(createTrainerDto: CreateTrainerDto): Promise<Trainer> {
     const hash = await bcrypt.hash(createTrainerDto.password, 10);
     createTrainerDto.password = hash;
     const newTrainer = await new this.trainerModel(createTrainerDto);
@@ -34,5 +34,23 @@ export class PostService {
   async findAll(): Promise<Trainer[]> {
     const trainersList = await this.trainerModel.find().exec();
     return trainersList;
+  }
+
+  async filterTreners(
+    sport,
+    priceFrom = 0,
+    priceTo = 9999,
+  ): Promise<Trainer[]> {
+    const trainersList = await this.trainerModel.find().exec();
+    const splitQuery = sport.split(',');
+
+    const filteredList = trainersList.filter(
+      (trener) =>
+        splitQuery.includes(trener.sport) &&
+        trener.price >= priceFrom &&
+        trener.price <= priceTo,
+    );
+
+    return filteredList;
   }
 }

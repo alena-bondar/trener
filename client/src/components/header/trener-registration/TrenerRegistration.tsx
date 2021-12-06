@@ -24,7 +24,7 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
     handleSubmit,
     control,
     watch,
-    // reset,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
@@ -37,7 +37,7 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
     };
 
     createUser(withoutDash);
-    // reset();
+    reset();
   };
 
   const onFetchKindsOfSports = async () => {

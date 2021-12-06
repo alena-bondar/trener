@@ -1,4 +1,4 @@
-export class CreatePostDto {
+export class CreateSportDto {
   readonly value: string;
   readonly label: string;
 }

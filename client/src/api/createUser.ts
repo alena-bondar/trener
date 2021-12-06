@@ -8,4 +8,5 @@ function createUser(data: FormData): void {
     .then(() => alert("Тренер добавлений"))
     .catch((error) => alert("Помилка, тренер не добавлений ") + error);
 }
+
 export default createUser;

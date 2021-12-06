@@ -2,12 +2,14 @@ import {
   IsEmail,
   IsMobilePhone,
   IsNotEmpty,
+  Max,
   MaxLength,
+  Min,
   MinLength,
 } from 'class-validator';
 import { Transform, TransformFnParams } from 'class-transformer';
 
-export class CreatePostDto {
+export class CreateTrainerDto {
   @IsEmail()
   email: string;
 
@@ -26,7 +28,24 @@ export class CreatePostDto {
     message: 'Last name is too long. Maximal length is 40 characters',
   })
   lastName: string;
+
   sport: string;
+
+  @Min(16, {
+    message: 'Minimum age of a trainer is 16 years',
+  })
+  @Max(80, {
+    message: 'Maximum age of a trainer is 80 years',
+  })
+  age: number;
+
+  @Min(0, {
+    message: 'Cost cannot be less than 0',
+  })
+  @Max(1000, {
+    message: 'Cost cannot be more than 1000',
+  })
+  price: number;
 
   @IsMobilePhone()
   @MinLength(10, {
@@ -38,7 +57,6 @@ export class CreatePostDto {
   phoneNumber: string;
 
   @IsNotEmpty()
-  @Transform(({ value }: TransformFnParams) => value.trim())
   @MinLength(6, {
     message: 'Password is too short. Minimal length is 6 characters',
   })

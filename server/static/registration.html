@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form id="registration" method="post" action="/trainers">
+    <label for="email">email</label>
+    <input type="email" id="email" name="email">
+    <label for="name">name</label>
+    <input type="text" id="name" name="name">
+    <label for="lastName">last name</label>
+    <input type="text" id="lastName" name="lastName">
+    <label for="sport">sport</label>
+    <select name="sport" id="sport" form="registration">
+    </select>
+    <label for="phone">phone number</label>
+    <input type="tel" id="phone" name="phoneNumber">
+    <label for="pass">password</label>
+    <input type="password" id="pass" name="password">
+    <input type="submit" value="send" class="send">
+</form>
+<div class="success-register">
+
+</div>
+<script>
+
+    const formRegistration = document.querySelector('#registration');
+    const successRegister = document.querySelector('.success-register');
+    const selectSport = document.querySelector('#sport');
+
+    const api = axios.create({baseURL: 'http://localhost:3000'});
+
+    formRegistration.onsubmit = (e) => {
+
+        e.preventDefault();
+
+        const formData = new FormData(formRegistration);
+
+        api.post('trainers',
+            {
+                email: formData.get('email'),
+                name: formData.get('name'),
+                lastName: formData.get('lastName'),
+                sport: formData.get('sport'),
+                phoneNumber: formData.get('phoneNumber'),
+                password: formData.get('password'),
+            })
+            .then((response) => {
+                console.log(response);
+                formRegistration.style.display = 'none';
+                successRegister.innerHTML = `Registration successful, ${response.data.trainer.name} ${response.data.trainer.lastName}`;
+            }).catch((response) => {
+               alert(response.response.data.message.join('!'))
+        })
+    }
+
+    api.get('kinds-of-sports')
+    .then((response) => {
+        let content = '';
+        response.data.map(sport => {
+             content += `<option value=${sport.label}>${sport.label}</option>`
+        })
+        selectSport.innerHTML = content;
+    })
+
+</script>
+</body>
+</html>
