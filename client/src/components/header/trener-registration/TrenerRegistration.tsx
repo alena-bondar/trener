@@ -24,15 +24,20 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
     handleSubmit,
     control,
     watch,
-    reset,
+    // reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = (data: FormData) => {
-    createUser(JSON.stringify(data, null, 2));
-    reset();
+    const withoutDash = {
+      ...data,
+      phoneNumber: data.phoneNumber.split('-').join(''),
+    };
+
+    createUser(withoutDash);
+    // reset();
   };
 
   const onFetchKindsOfSports = async () => {

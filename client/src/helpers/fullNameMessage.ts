@@ -1,6 +1,4 @@
-type FullName = (watch: any) => string;
-
-export const fullNameMessage: FullName = (watch) => {
+export const fullNameMessage = (watch: any) => {
   const name = watch('name');
   const lastName = watch('lastName');
 
