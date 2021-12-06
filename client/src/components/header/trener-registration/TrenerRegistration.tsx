@@ -33,7 +33,12 @@ export const TrenerRegistration: React.FC<Props> = ({
   });
 
   const onSubmit = (data: FormData) => {
-    createUser(JSON.stringify(data, null, 2));
+    const withoutDash = {
+      ...data,
+      phoneNumber: data.phoneNumber.split('-').join(''),
+    };
+
+    createUser(withoutDash);
     reset();
   };
 
