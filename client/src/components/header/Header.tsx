@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { SelectCity } from './SelectCity';
-import { SelectLanguage } from './SelectLanguage';
-import './style.scss';
-import { TrenerRegistration } from './trener-registration/TrenerRegistration';
+import React, { useState } from "react";
+import { SelectCity } from "./SelectCity";
+import { SelectLanguage } from "./SelectLanguage";
+import { TrenerRegistration } from "./trener-registration/TrenerRegistration";
+
+import person from "images/person.svg";
+import "./style.scss";
 
 export const Header: React.FC = () => {
-  const [selectedCity, setSelectedCity] = useState<string>('Київ');
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('українська');
+  const [selectedCity, setSelectedCity] = useState<string>("Київ");
+  const [selectedLanguage, setSelectedLanguage] =
+    useState<string>("українська");
   const [showRegistration, setShowRegistration] = useState<boolean>(false);
 
   return (
@@ -35,7 +38,7 @@ export const Header: React.FC = () => {
 
       <div className="enter-container">
         <div>
-          <img src="https://svgsilh.com/svg/1824147-828282.svg" className="person" />
+          <img src={person} className="person" />
 
           <button className="enter-button text text--300">Увійти</button>
         </div>
@@ -49,7 +52,9 @@ export const Header: React.FC = () => {
         </button>
       </div>
 
-      {showRegistration && <TrenerRegistration setShowRegistration={setShowRegistration} />}
+      {showRegistration && (
+        <TrenerRegistration setShowRegistration={setShowRegistration} />
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 export const fullNameMessage = (watch: any) => {
-  const name = watch('name');
-  const lastName = watch('lastName');
+  const name = watch("name");
+  const lastName = watch("lastName");
 
   if (name && lastName) {
     if (name.length === 1 && lastName.length === 1) {
@@ -12,9 +12,9 @@ export const fullNameMessage = (watch: any) => {
     }
 
     if (lastName.length < 2) {
-      return 'Поле прізвище має мати принаймні 2 символа';
+      return "Поле прізвище має мати принаймні 2 символа";
     }
   }
 
-  return '';
+  return "";
 };

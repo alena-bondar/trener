@@ -1,4 +1,4 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
 
 .footer {
   display: flex;
@@ -26,7 +26,6 @@
   }
 
   &__social-networks {
-
     &--insta {
       display: block;
       background-image: url(../../images/insta.png);
@@ -85,11 +84,10 @@
 
 .adress {
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .num {
   position: relative;
   top: -5px;
 }
-

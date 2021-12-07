@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import InputMask from 'react-input-mask';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FormData } from '../../../types/FormData';
-import { fetchKindsOfSports } from '../../../api/fetchKindsOfSports';
-import { validationSchema } from '../../../helpers/validationShema';
-import { fullNameMessage } from '../../../helpers/fullNameMessage';
+import React, { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import InputMask from "react-input-mask";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FormData } from "types/FormData";
+import { validationSchema } from "helpers/validationShema";
+import { fullNameMessage } from "helpers/fullNameMessage";
 
-import createUser from '../../../api/createUser';
-import kindsOfSport from '../../../types/kindsOfSports';
+import users from "api/users";
+import kindsOfSport from "types/kindsOfSports";
 
-import './style.scss';
+import "./style.scss";
+import { sports } from "api/sports";
 
 type Props = {
   setShowRegistration: (param: boolean) => void;
 };
 
-export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => {
+export const TrenerRegistration: React.FC<Props> = ({
+  setShowRegistration,
+}) => {
   const [kindsOfSport, setKindsOfSport] = useState<kindsOfSport[] | []>([]);
 
   const {
@@ -33,55 +35,76 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
   const onSubmit = (data: FormData) => {
     const withoutDash = {
       ...data,
-      phoneNumber: data.phoneNumber.split('-').join(''),
+
+      phoneNumber: data.phoneNumber.split("-").join(""),
     };
 
-    createUser(withoutDash);
+    users(withoutDash);
     reset();
   };
 
-  const onFetchKindsOfSports = async () => {
-    const { error, data } = await fetchKindsOfSports();
+  const fetchKindsOfSports = async () => {
+    const kindsOfSports = await sports();
 
-    if (!error) setKindsOfSport(data);
+    if (!kindsOfSports || kindsOfSports instanceof Error) {
+      console.error("Error downloading kindsOfSports");
+    } else {
+      setKindsOfSport(kindsOfSports);
+    }
   };
 
   useEffect(() => {
-    onFetchKindsOfSports();
+    fetchKindsOfSports();
   }, []);
 
   return (
     <div className="reg">
       <div className="reg__header">
         <span className="reg__tittle">Реєстрація тренера</span>
-        <button className="reg__close-btn" onClick={() => setShowRegistration(false)}>
+        <button
+          className="reg__close-btn"
+          onClick={() => setShowRegistration(false)}
+        >
           X
         </button>
       </div>
 
       <div className="reg__form-container">
         <form className="reg__form" onSubmit={handleSubmit(onSubmit)}>
-          <i className="fa fa-envelope-o fa-2x reg__icon reg__icon--down" aria-hidden="true" />
+          <i
+            className="fa fa-envelope-o fa-2x reg__icon reg__icon--down"
+            aria-hidden="true"
+          />
           <div className="reg__inlet">
             <div className="error">
               <span>{errors.email?.message}</span>
             </div>
-            <input type="text" className="input" placeholder="Ваш e-mail" {...register('email')} />
+            <input
+              type="text"
+              className="input"
+              placeholder="Ваш e-mail"
+              {...register("email")}
+            />
           </div>
 
-          <i className="fa fa-address-card-o fa-2x reg__icon reg__icon--down" aria-hidden="true" />
+          <i
+            className="fa fa-address-card-o fa-2x reg__icon reg__icon--down"
+            aria-hidden="true"
+          />
           <div className="reg__inlet reg__inlet--for-two">
             <div className="reg__form__name">
               <div className="error">
                 <span>
-                  {fullNameMessage(watch) ? fullNameMessage(watch) : errors.name?.message}
+                  {fullNameMessage(watch)
+                    ? fullNameMessage(watch)
+                    : errors.name?.message}
                 </span>
               </div>
               <input
                 type="text"
                 className="input input--short"
                 placeholder="Ім'я"
-                {...register('name')}
+                {...register("name")}
               />
             </div>
             <div className="reg__form__last-name">
@@ -89,7 +112,7 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
                 type="text"
                 className="input input--short"
                 placeholder="Прізвище"
-                {...register('lastName', { minLength: 2 })}
+                {...register("lastName", { minLength: 2 })}
               />
             </div>
           </div>
@@ -107,7 +130,7 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
                 className="input input--code"
                 placeholder="Вік"
                 type="number"
-                {...register('age', {
+                {...register("age", {
                   min: 16,
                   max: 80,
                 })}
@@ -127,17 +150,20 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
                 className="input input--price"
                 type="number"
                 min="0"
-                {...register('price')}
+                {...register("price")}
               />
             </div>
           </div>
 
-          <i className="fa fa-futbol-o fa-2x reg__icon reg__icon--down" aria-hidden="true" />
+          <i
+            className="fa fa-futbol-o fa-2x reg__icon reg__icon--down"
+            aria-hidden="true"
+          />
           <div className="reg__inlet">
-            {watch('sport') === 'Основний вид спорту' && (
+            {watch("sport") === "Основний вид спорту" && (
               <span className="error">Виберіть будь-ласка вид спорту</span>
             )}
-            <select className="input" {...register('sport')}>
+            <select className="input" {...register("sport")}>
               <option disabled className="option">
                 Основний вид спорту
               </option>
@@ -152,14 +178,16 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
           </div>
           <div className="reg__info-text">
             <span>
-              Після завершення реєстрації в особистому кабінеті Ви зможете додати ще 2 додаткових
-              вида спорту
+              Після завершення реєстрації в особистому кабінеті Ви зможете
+              додати ще 2 додаткових вида спорту
             </span>
           </div>
 
           <i className="fa fa-mobile fa-3x reg__icon" aria-hidden="true" />
           <div className="reg__inlet--for-two reg__inlet">
-            {errors.phoneNumber && <span className="error">Поле повинно мати значення</span>}
+            {errors.phoneNumber && (
+              <span className="error">Поле повинно мати значення</span>
+            )}
             <div>
               <input className="input input--code" disabled placeholder="38" />
             </div>
@@ -180,26 +208,32 @@ export const TrenerRegistration: React.FC<Props> = ({ setShowRegistration }) => 
             </div>
           </div>
 
-          <i className="fa fa-key fa-2x reg__icon reg__icon--down" aria-hidden="true" />
+          <i
+            className="fa fa-key fa-2x reg__icon reg__icon--down"
+            aria-hidden="true"
+          />
           <div className="reg__inlet">
             <span className="error">{errors.password?.message}</span>
             <input
               type="password"
               className="input"
               autoComplete="on"
-              {...register('password', { minLength: 6 })}
+              {...register("password", { minLength: 6 })}
               placeholder="Пароль"
             />
           </div>
 
-          <i className="fa fa-key fa-2x reg__icon reg__icon--down" aria-hidden="true" />
+          <i
+            className="fa fa-key fa-2x reg__icon reg__icon--down"
+            aria-hidden="true"
+          />
           <div className="reg__inlet">
             <span className="error">{errors.submitPassword?.message}</span>
             <input
               type="password"
               className="input"
               autoComplete="on"
-              {...register('submitPassword', { minLength: 6 })}
+              {...register("submitPassword", { minLength: 6 })}
               placeholder="Підтвердіть пароль"
             />
           </div>

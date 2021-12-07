@@ -20,6 +20,15 @@ export class KindsOfSportsService {
     return sport;
   }
 
+  async findFilteredSport(searchParam): Promise<KindOfSport[]> {
+    const sportList = await this.sportModel.find().exec();
+    const filteredSport = sportList.filter((sport) =>
+      sport.label.toLowerCase().includes(searchParam.toLowerCase()),
+    );
+
+    return filteredSport;
+  }
+
   async findAll(): Promise<KindOfSport[]> {
     const sportList = await this.sportModel.find().exec();
     return sportList;
