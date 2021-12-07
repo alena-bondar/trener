@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TrainerSchema } from './schemas/trainer.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { OauthController } from './controllers/oauth.controller';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { ConfigModule } from '@nestjs/config';
       signOptions: { expiresIn: '1d' },
     }),
   ],
-  controllers: [TrainersController],
+  controllers: [TrainersController, OauthController],
   providers: [TrainersService],
 })
 export class TrainersModule {}

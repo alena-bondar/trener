@@ -1,16 +1,16 @@
 import './App.css';
-import LoginGoogle from "./LoginGoogle";
-import Logout from "./Logout";
+import LoginGoogle from "./components/LoginGoogle";
+import Logout from "./components/Logout";
 import {useState} from "react";
 import axios from "axios";
 
 function App() {
    axios.get('trainers/trainer')
         .then((response) => {
-        if(response.data !== '') {
             setIsLoggedIn(true);
-        }
-    })
+    }).catch((err) => {
+       console.log(err.message)
+   })
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
