@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { debounce } from "../../../services/debounce";
-import { fetchFilteredSports } from "../../../api/fetchFilteredSports";
-import { fetchTreners } from "../../../api/fetchTreners";
 
-import KindsOfSports from "../../../types/kindsOfSports";
+import { debounce } from "services/debounce";
+import { sports } from "api/sports";
+import { treners } from "api/treners";
+import arrow from "images/arrow-to-right.svg";
+import cross from "images/cross.svg";
+
+import KindsOfSports from "types/kindsOfSports";
 import SearchBox from "./search-box/SearchBox";
 import "./style.scss";
-import useComponentVisible from "../../../services/useComponentVisible";
+import useComponentVisible from "services/useComponentVisible";
 
 export const Filters: React.FC = (): JSX.Element => {
   const [searchParam, setSearchParams] = useState<string>("");
@@ -18,9 +21,15 @@ export const Filters: React.FC = (): JSX.Element => {
   );
 
   const applyQuery = useCallback(debounce(setAppliedQuery, 500), []);
+  const setVisibility = () => setIsComponentVisible(true);
+  const clearParams = () => {
+    setAppliedQuery("");
+    setSearchParams("");
+    setFilteredSearch([]);
+  };
 
   useEffect(() => {
-    fetchFilteredSports(searchParam, setFilteredSearch);
+    sports(searchParam, setFilteredSearch);
   }, [appliedQuery]);
 
   return (
@@ -30,7 +39,7 @@ export const Filters: React.FC = (): JSX.Element => {
         <div className="filters__container">
           <input
             value={searchParam}
-            onClick={() => setIsComponentVisible(true)}
+            onClick={setVisibility}
             onChange={(e) => {
               setSearchParams(e.target.value);
               applyQuery(e.target.value);
@@ -42,22 +51,12 @@ export const Filters: React.FC = (): JSX.Element => {
 
           {(searchParam && isComponentVisible && (
             <img
-              onClick={() => {
-                setAppliedQuery("");
-                setSearchParams("");
-                setFilteredSearch([]);
-              }}
+              onClick={clearParams}
               className="arrow-img cross"
-              src="/images/cross.svg"
+              src={cross}
               alt="Cross"
             />
-          )) || (
-            <img
-              className="arrow-img"
-              src="/images/arrow-to-right.svg"
-              alt="Arrow"
-            />
-          )}
+          )) || <img className="arrow-img" src={arrow} alt="Arrow" />}
         </div>
 
         {appliedQuery.length > 2 && filteredSearch.length > 0 && (
@@ -73,7 +72,7 @@ export const Filters: React.FC = (): JSX.Element => {
         )}
 
         <button
-          onClick={() => fetchTreners(searchParam)}
+          onClick={() => treners(searchParam)}
           className="filters__button"
         >
           Знайти

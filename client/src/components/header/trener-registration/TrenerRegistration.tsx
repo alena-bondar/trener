@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormData } from "../../../types/FormData";
-import { fetchKindsOfSports } from "../../../api/fetchKindsOfSports";
-import { validationSchema } from "../../../helpers/validationShema";
-import { fullNameMessage } from "../../../helpers/fullNameMessage";
+import { FormData } from "types/FormData";
+import { validationSchema } from "helpers/validationShema";
+import { fullNameMessage } from "helpers/fullNameMessage";
 
-import createUser from "../../../api/createUser";
-import kindsOfSport from "../../../types/kindsOfSports";
+import users from "api/users";
+import kindsOfSport from "types/kindsOfSports";
 
 import "./style.scss";
+import { sports } from "api/sports";
 
 type Props = {
   setShowRegistration: (param: boolean) => void;
@@ -33,22 +33,27 @@ export const TrenerRegistration: React.FC<Props> = ({
   });
 
   const onSubmit = (data: FormData) => {
-    createUser(JSON.stringify(data, null, 2));
+    const withoutDash = {
+      ...data,
+      phoneNumber: data.phoneNumber.split("-").join(""),
+    };
+
+    users(withoutDash);
     reset();
   };
 
-  const onFetchKindsOfSports = async () => {
-    const sports = await fetchKindsOfSports();
+  const fetchKindsOfSports = async () => {
+    const kindsOfSports = await sports();
 
-    if (sports instanceof Error) {
+    if (!kindsOfSports || kindsOfSports instanceof Error) {
       console.error("Error downloading kindsOfSports");
     } else {
-      setKindsOfSport(sports);
+      setKindsOfSport(kindsOfSports);
     }
   };
 
   useEffect(() => {
-    onFetchKindsOfSports();
+    fetchKindsOfSports();
   }, []);
 
   return (

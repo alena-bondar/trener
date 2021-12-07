@@ -2,6 +2,7 @@
   "name": "trener",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3003",
   "dependencies": {
     "@hookform/resolvers": "^2.8.3",
     "@testing-library/jest-dom": "^5.15.0",
@@ -53,6 +54,7 @@
     "@types/react-input-mask": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.3.0",
@@ -61,6 +63,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "file-loader": "^6.2.0",
     "prettier": "^2.4.1"
   }
 }

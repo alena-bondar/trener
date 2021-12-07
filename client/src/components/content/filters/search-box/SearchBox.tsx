@@ -1,7 +1,7 @@
 import React, { Dispatch, RefObject } from "react";
 import "./style.scss";
-import { editText } from "../../../../helpers/editText";
-import KindsOfSports from "../../../../types/kindsOfSports";
+import { editText } from "helpers/editText";
+import KindsOfSports from "types/kindsOfSports";
 
 type Props = {
   sports: KindsOfSports[];
