@@ -35,6 +35,7 @@ export const TrenerRegistration: React.FC<Props> = ({
   const onSubmit = (data: FormData) => {
     const withoutDash = {
       ...data,
+
       phoneNumber: data.phoneNumber.split("-").join(""),
     };
 

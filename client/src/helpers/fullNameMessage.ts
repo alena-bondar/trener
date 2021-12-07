@@ -1,5 +1,4 @@
 export const fullNameMessage = (watch: any) => {
-  console.log(watch("name"));
   const name = watch("name");
   const lastName = watch("lastName");
 
