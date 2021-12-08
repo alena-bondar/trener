@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Trainer } from './interfaces/trainer.interface';
 import { Model } from 'mongoose';
 import { kinsOfSports } from '../kinds-of-sports/data/data';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class TrainersService {
@@ -13,8 +12,6 @@ export class TrainersService {
   ) {}
 
   async create(createTrainerDto: CreateTrainerDto): Promise<Trainer> {
-    const hash = await bcrypt.hash(createTrainerDto.password, 10);
-    createTrainerDto.password = hash;
     const newTrainer = await new this.trainerModel(createTrainerDto);
     return newTrainer.save();
   }

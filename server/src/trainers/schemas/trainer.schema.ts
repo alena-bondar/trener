@@ -22,8 +22,5 @@ export class Trainer {
 
   @Prop({ required: true, unique: true })
   phoneNumber: string;
-
-  @Prop({ required: true })
-  password: string;
 }
 export const TrainerSchema = SchemaFactory.createForClass(Trainer);

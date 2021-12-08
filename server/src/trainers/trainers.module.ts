@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TrainersService } from './trainers.service';
-import { TrainersController } from './trainers.controller';
+import { TrainersController } from './controllers/trainers.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TrainerSchema } from './schemas/trainer.schema';
 import { JwtModule } from '@nestjs/jwt';

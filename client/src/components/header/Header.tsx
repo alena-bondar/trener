@@ -5,12 +5,21 @@ import { TrenerRegistration } from "./trener-registration/TrenerRegistration";
 
 import person from "images/person.svg";
 import "./style.scss";
+import firebase from "firebase/compat";
+import {auth} from "../../firebase-config";
 
 export const Header: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<string>("Київ");
   const [selectedLanguage, setSelectedLanguage] =
     useState<string>("українська");
   const [showRegistration, setShowRegistration] = useState<boolean>(false);
+
+  const login = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const user = await auth.signInWithPopup(provider);
+    console.log(user.additionalUserInfo?.profile)
+
+  }
 
   return (
     <div className="header-wrapper">
@@ -40,7 +49,7 @@ export const Header: React.FC = () => {
         <div>
           <img src={person} className="person" />
 
-          <button className="enter-button text text--300">Увійти</button>
+          <button onClick={login} className="enter-button text text--300">Увійти</button>
         </div>
 
         <button

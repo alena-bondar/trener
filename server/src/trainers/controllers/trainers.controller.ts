@@ -14,13 +14,11 @@ import {
   ValidationPipe,
   UsePipes,
 } from '@nestjs/common';
-import { TrainersService } from './trainers.service';
-import { CreateTrainerDto } from './dto/create-trainer.dto';
-import { ValidateObjectId } from './shared/validate-object-id.pipes';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import * as bcrypt from 'bcrypt';
+import { TrainersService } from '../trainers.service';
+import { CreateTrainerDto } from '../dto/create-trainer.dto';
+import { ValidateObjectId } from '../shared/validate-object-id.pipes';
+import { CreateAuthDto } from '../dto/create-auth.dto';
 import { JwtService } from '@nestjs/jwt';
-import { query } from 'express';
 
 @Controller('trainers')
 export class TrainersController {
@@ -71,9 +69,6 @@ export class TrainersController {
     );
     if (!trainer) {
       throw new BadRequestException('Invalid email');
-    }
-    if (!(await bcrypt.compare(createAuthDto.password, trainer.password))) {
-      throw new BadRequestException('Invalid password');
     }
     const jwt = await this.jwtService.signAsync({ id: trainer._id });
     res.cookie('jwt', jwt, { httpOnly: true });
