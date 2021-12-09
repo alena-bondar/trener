@@ -11,7 +11,7 @@ export class TrainersService {
     @InjectModel('Trainer') private readonly trainerModel: Model<Trainer>,
   ) {}
 
-  async create(createTrainerDto: CreateTrainerDto): Promise<Trainer> {
+  async create(createTrainerDto): Promise<Trainer> {
     const newTrainer = await new this.trainerModel(createTrainerDto);
     return newTrainer.save();
   }

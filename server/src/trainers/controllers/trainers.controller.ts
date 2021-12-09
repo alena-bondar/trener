@@ -19,6 +19,7 @@ import { CreateTrainerDto } from '../dto/create-trainer.dto';
 import { ValidateObjectId } from '../shared/validate-object-id.pipes';
 import { CreateAuthDto } from '../dto/create-auth.dto';
 import { JwtService } from '@nestjs/jwt';
+import firebase from '../../firebase/firebase-config';
 
 @Controller('trainers')
 export class TrainersController {
@@ -29,15 +30,14 @@ export class TrainersController {
 
   @Post()
   async create(@Res() res, @Body() createTrainerDto: CreateTrainerDto) {
-    const trainerEmail = await this.trainersService.getTrainerByEmail(
-      createTrainerDto.email,
-    );
-    if (trainerEmail && trainerEmail.email === createTrainerDto.email) {
+    const decodedToken = await firebase
+      .auth()
+      .verifyIdToken(createTrainerDto.token);
+    if (!decodedToken.uid) {
       return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Failed! Email is already in use!',
+        message: 'token is not valid',
       });
     }
-
     const trainerPhoneNumber =
       await this.trainersService.getTrainerByPhoneNumber(
         createTrainerDto.phoneNumber,
@@ -51,7 +51,16 @@ export class TrainersController {
       });
     }
 
-    const newTrainer = await this.trainersService.create(createTrainerDto);
+    const trainerData = {
+      email: decodedToken.email,
+      phoneNumber: createTrainerDto.phoneNumber,
+      sport: createTrainerDto.sport,
+      price: createTrainerDto.price,
+      age: createTrainerDto.age,
+      lastName: createTrainerDto.lastName,
+      name: createTrainerDto.name,
+    };
+    const newTrainer = await this.trainersService.create(trainerData);
 
     return res.status(HttpStatus.OK).json({
       trainer: newTrainer,

@@ -1,5 +1,4 @@
 import {
-  IsEmail,
   IsMobilePhone,
   Max,
   MaxLength,
@@ -8,9 +7,6 @@ import {
 } from 'class-validator';
 
 export class CreateTrainerDto {
-  @IsEmail()
-  email: string;
-
   @MinLength(2, {
     message: 'Name is too short. Minimal length is 2 characters',
   })
@@ -53,4 +49,5 @@ export class CreateTrainerDto {
     message: 'Phone number is too long. Maximal length is 10 characters',
   })
   phoneNumber: string;
+  token: string;
 }

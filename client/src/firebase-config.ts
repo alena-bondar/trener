@@ -10,4 +10,4 @@ firebase.initializeApp({
     measurementId: 'G-8F31QY4F0Q',
 });
 
-export const auth = firebase.auth();
+export const auth: any = firebase.auth();

@@ -2,24 +2,16 @@ import React, { useState } from "react";
 import { SelectCity } from "./SelectCity";
 import { SelectLanguage } from "./SelectLanguage";
 import { TrenerRegistration } from "./trener-registration/TrenerRegistration";
+import { TrenerLogin} from "./trener-login/TrenerLogin";
 
 import person from "images/person.svg";
 import "./style.scss";
-import firebase from "firebase/compat";
-import {auth} from "../../firebase-config";
 
 export const Header: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<string>("Київ");
   const [selectedLanguage, setSelectedLanguage] =
     useState<string>("українська");
   const [showRegistration, setShowRegistration] = useState<boolean>(false);
-
-  const login = async () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const user = await auth.signInWithPopup(provider);
-    console.log(user.additionalUserInfo?.profile)
-
-  }
 
   return (
     <div className="header-wrapper">
@@ -49,7 +41,8 @@ export const Header: React.FC = () => {
         <div>
           <img src={person} className="person" />
 
-          <button onClick={login} className="enter-button text text--300">Увійти</button>
+          <button className="enter-button text text--300">Увійти</button>
+
         </div>
 
         <button
@@ -59,6 +52,7 @@ export const Header: React.FC = () => {
           <span className="plus-icon"> </span>
           Реєстрація тренера
         </button>
+        <TrenerLogin />
       </div>
 
       {showRegistration && (
