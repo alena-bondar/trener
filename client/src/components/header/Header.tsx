@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { SelectCity } from "./SelectCity";
 import { SelectLanguage } from "./SelectLanguage";
 import { TrenerRegistration } from "./trener-registration/TrenerRegistration";
-import { TrenerLogin} from "./trener-login/TrenerLogin";
 
 import person from "images/person.svg";
 import "./style.scss";
@@ -52,7 +51,6 @@ export const Header: React.FC = () => {
           <span className="plus-icon"> </span>
           Реєстрація тренера
         </button>
-        <TrenerLogin />
       </div>
 
       {showRegistration && (

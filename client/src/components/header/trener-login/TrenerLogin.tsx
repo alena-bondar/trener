@@ -14,11 +14,11 @@ export const TrenerLogin: React.FC = () => {
     return (
         <div>
             <form onSubmit={handleSubmit(login)}>
-                <label htmlFor="email">email</label>
-                <input type="text" id="email" {...register("email")}/>
-                <label htmlFor="pass">password</label>
-                <input type="password" id="pass" {...register("password")}/>
-                <input type="submit" value="login" className="login" />
+                <label htmlFor="email">email</label><br/>
+                <input type="text" id="email" {...register("email")}/><br/>
+                <label htmlFor="pass">password</label><br/>
+                <input type="password" id="pass" {...register("password")}/><br/>
+                <input type="submit" value="login" className="login" /><br/>
             </form>
         </div>
     )

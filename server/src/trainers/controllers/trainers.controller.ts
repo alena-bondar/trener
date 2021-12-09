@@ -73,9 +73,18 @@ export class TrainersController {
     @Res({ passthrough: true }) res,
     @Body() createAuthDto: CreateAuthDto,
   ) {
-    const trainer = await this.trainersService.getTrainerByEmail(
-      createAuthDto.email,
-    );
+    const decodedToken = await firebase
+      .auth()
+      .verifyIdToken(createAuthDto.token);
+    if (!decodedToken.uid) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: 'token is not valid',
+      });
+    }
+
+    const trainerEmail = decodedToken.email;
+
+    const trainer = await this.trainersService.getTrainerByEmail(trainerEmail);
     if (!trainer) {
       throw new BadRequestException('Invalid email');
     }
