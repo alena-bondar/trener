@@ -18,9 +18,8 @@ import { TrainersService } from './trainers.service';
 import { CreateTrainerDto } from './dto/create-trainer.dto';
 import { ValidateObjectId } from './shared/validate-object-id.pipes';
 import { CreateAuthDto } from './dto/create-auth.dto';
-import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { query } from 'express';
+import firebase from '../firebase/firebase-config';
 
 @Controller('trainers')
 export class TrainersController {
@@ -31,15 +30,14 @@ export class TrainersController {
 
   @Post()
   async create(@Res() res, @Body() createTrainerDto: CreateTrainerDto) {
-    const trainerEmail = await this.trainersService.getTrainerByEmail(
-      createTrainerDto.email,
-    );
-    if (trainerEmail && trainerEmail.email === createTrainerDto.email) {
+    const decodedToken = await firebase
+      .auth()
+      .verifyIdToken(createTrainerDto.token);
+    if (!decodedToken.uid) {
       return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Failed! Email is already in use!',
+        message: 'token is not valid',
       });
     }
-
     const trainerPhoneNumber =
       await this.trainersService.getTrainerByPhoneNumber(
         createTrainerDto.phoneNumber,
@@ -53,7 +51,16 @@ export class TrainersController {
       });
     }
 
-    const newTrainer = await this.trainersService.create(createTrainerDto);
+    const trainerData = {
+      email: decodedToken.email,
+      phoneNumber: createTrainerDto.phoneNumber,
+      sport: createTrainerDto.sport,
+      price: createTrainerDto.price,
+      age: createTrainerDto.age,
+      lastName: createTrainerDto.lastName,
+      name: createTrainerDto.name,
+    };
+    const newTrainer = await this.trainersService.create(trainerData);
 
     return res.status(HttpStatus.OK).json({
       trainer: newTrainer,
@@ -66,14 +73,20 @@ export class TrainersController {
     @Res({ passthrough: true }) res,
     @Body() createAuthDto: CreateAuthDto,
   ) {
-    const trainer = await this.trainersService.getTrainerByEmail(
-      createAuthDto.email,
-    );
+    const decodedToken = await firebase
+      .auth()
+      .verifyIdToken(createAuthDto.token);
+    if (!decodedToken.uid) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: 'token is not valid',
+      });
+    }
+
+    const trainerEmail = decodedToken.email;
+
+    const trainer = await this.trainersService.getTrainerByEmail(trainerEmail);
     if (!trainer) {
       throw new BadRequestException('Invalid email');
-    }
-    if (!(await bcrypt.compare(createAuthDto.password, trainer.password))) {
-      throw new BadRequestException('Invalid password');
     }
     const jwt = await this.jwtService.signAsync({ id: trainer._id });
     res.cookie('jwt', jwt, { httpOnly: true });

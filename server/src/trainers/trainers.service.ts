@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTrainerDto } from './dto/create-trainer.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Trainer } from './interfaces/trainer.interface';
 import { Model } from 'mongoose';
@@ -12,9 +11,7 @@ export class TrainersService {
     @InjectModel('Trainer') private readonly trainerModel: Model<Trainer>,
   ) {}
 
-  async create(createTrainerDto: CreateTrainerDto): Promise<Trainer> {
-    const hash = await bcrypt.hash(createTrainerDto.password, 10);
-    createTrainerDto.password = hash;
+  async create(createTrainerDto): Promise<Trainer> {
     const newTrainer = await new this.trainerModel(createTrainerDto);
     return newTrainer.save();
   }
@@ -38,19 +35,27 @@ export class TrainersService {
   }
 
   async filterTreners(
-    sport,
+    sport = '',
     priceFrom = 0,
     priceTo = 9999,
   ): Promise<Trainer[]> {
     const trainersList = await this.trainerModel.find().exec();
+    const splitSport = sport.split('-').join(' ');
 
-    const { value } = kinsOfSports.filter(
-      (discipline) => discipline.label.toLowerCase() === sport.toLowerCase(),
-    )[0];
+    const filtered = kinsOfSports.filter(
+      (discipline) =>
+        discipline.label.toLowerCase() === splitSport.toLowerCase(),
+    );
+
+    if (filtered.length === 0) {
+      return trainersList.filter(
+        (trener) => trener.price >= priceFrom && trener.price <= priceTo,
+      );
+    }
 
     const filteredList = trainersList.filter(
       (trener) =>
-        trener.sport.toLowerCase().includes(value.toLowerCase()) &&
+        trener.sport.toLowerCase().includes(filtered[0].value.toLowerCase()) &&
         trener.price >= priceFrom &&
         trener.price <= priceTo,
     );

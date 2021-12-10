@@ -169,7 +169,7 @@ export const TrenerRegistration: React.FC<Props> = ({
               </option>
               {kindsOfSport.map((elem: kindsOfSport) => {
                 return (
-                  <option key={elem.label} value={elem.label}>
+                  <option key={elem.value} value={elem.value}>
                     {elem.label}
                   </option>
                 );

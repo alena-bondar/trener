@@ -1,18 +1,12 @@
 import {
-  IsEmail,
   IsMobilePhone,
-  IsNotEmpty,
   Max,
   MaxLength,
   Min,
   MinLength,
 } from 'class-validator';
-import { Transform, TransformFnParams } from 'class-transformer';
 
 export class CreateTrainerDto {
-  @IsEmail()
-  email: string;
-
   @MinLength(2, {
     message: 'Name is too short. Minimal length is 2 characters',
   })
@@ -55,13 +49,5 @@ export class CreateTrainerDto {
     message: 'Phone number is too long. Maximal length is 10 characters',
   })
   phoneNumber: string;
-
-  @IsNotEmpty()
-  @MinLength(6, {
-    message: 'Password is too short. Minimal length is 6 characters',
-  })
-  @MaxLength(40, {
-    message: 'Password is too long. Maximal length is 40 characters',
-  })
-  password: string;
+  token: string;
 }

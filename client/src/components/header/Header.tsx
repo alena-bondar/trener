@@ -41,6 +41,7 @@ export const Header: React.FC = () => {
           <img src={person} className="person" />
 
           <button className="enter-button text text--300">Увійти</button>
+
         </div>
 
         <button
