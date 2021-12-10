@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
 export class Trainer {
-  @Prop({ required: true, unique: true })
+  @Prop()
   email: string;
 
   @Prop({ required: true })
@@ -22,8 +22,5 @@ export class Trainer {
 
   @Prop({ required: true, unique: true })
   phoneNumber: string;
-
-  @Prop({ required: true })
-  password: string;
 }
 export const TrainerSchema = SchemaFactory.createForClass(Trainer);
