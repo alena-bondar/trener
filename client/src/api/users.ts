@@ -10,7 +10,6 @@ function users(data: FormData): void {
         .then((userCredential) => {
             userCredential.user.getIdToken()
                 .then((response) => {
-                    console.log(response);
                     axios.post(`${BASE_URL}/trainers`, {
                         phoneNumber: data.phoneNumber,
                         sport: data.sport,

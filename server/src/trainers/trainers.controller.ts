@@ -14,12 +14,12 @@ import {
   ValidationPipe,
   UsePipes,
 } from '@nestjs/common';
-import { TrainersService } from '../trainers.service';
-import { CreateTrainerDto } from '../dto/create-trainer.dto';
-import { ValidateObjectId } from '../shared/validate-object-id.pipes';
-import { CreateAuthDto } from '../dto/create-auth.dto';
+import { TrainersService } from './trainers.service';
+import { CreateTrainerDto } from './dto/create-trainer.dto';
+import { ValidateObjectId } from './shared/validate-object-id.pipes';
+import { CreateAuthDto } from './dto/create-auth.dto';
 import { JwtService } from '@nestjs/jwt';
-import firebase from '../../firebase/firebase-config';
+import firebase from '../firebase/firebase-config';
 
 @Controller('trainers')
 export class TrainersController {

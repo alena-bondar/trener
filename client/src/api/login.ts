@@ -8,15 +8,12 @@ export const login = (data: FormDataLogin) => {
 
     signInWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential) => {
-            userCredential.user.getIdToken().then(function (result) {
+            userCredential.user.getIdToken()
+                .then((result) => {
                 axios.post('trainers/login',{
-                    token: result
-                }).then((response) => {
-                    console.log(response.data)
+                    token: result,
+                }).then(() => {
                     axios.get('trainers/trainer')
-                        .then((response) => {
-                            console.log(response.data)
-                        })
                 })
             })
         })
