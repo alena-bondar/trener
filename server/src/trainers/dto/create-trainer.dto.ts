@@ -1,10 +1,4 @@
-import {
-  IsMobilePhone,
-  Max,
-  MaxLength,
-  Min,
-  MinLength,
-} from 'class-validator';
+import { IsMobilePhone, Max, MaxLength, Min, MinLength } from 'class-validator';
 
 export class CreateTrainerDto {
   @MinLength(2, {
@@ -50,4 +44,5 @@ export class CreateTrainerDto {
   })
   phoneNumber: string;
   token: string;
+  locationSport: object;
 }

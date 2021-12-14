@@ -8,6 +8,7 @@ export type FormData = {
   phoneNumber: string;
   password: string;
   submitPassword: string;
+  location: string;
 };
 
 

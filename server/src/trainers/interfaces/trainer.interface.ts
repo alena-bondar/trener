@@ -9,4 +9,5 @@ export interface Trainer extends Document {
   readonly price: number;
   readonly sport: string;
   readonly phoneNumber: string;
+  readonly locationSport: object;
 }

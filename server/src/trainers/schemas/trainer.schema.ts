@@ -20,7 +20,13 @@ export class Trainer {
   @Prop({ required: true })
   sport: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   phoneNumber: string;
+
+  @Prop({ type: {} })
+  locationSport: {
+    lat: number;
+    lng: number;
+  };
 }
 export const TrainerSchema = SchemaFactory.createForClass(Trainer);

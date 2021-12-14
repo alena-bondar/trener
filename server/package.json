@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "seed": "node dist/seeder",
+    "seed": "npm run build && npm run prebuild && npm run seed",
     "seed:refresh": "node dist/seeder --refresh"
   },
   "dependencies": {
@@ -73,6 +73,7 @@
     "jest": "^27.2.5",
     "mongoose": "^6.0.12",
     "nestjs-seeder": "^0.2.0",
+
     "nodemon": "^2.0.15",
     "prettier": "^2.3.2",
     "source-map-support": "^0.5.20",

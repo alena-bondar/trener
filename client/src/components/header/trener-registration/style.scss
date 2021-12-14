@@ -125,6 +125,24 @@
   }
 }
 
+.location {
+  position: absolute;
+  z-index: 100;
+  background-color: #FFFFFF;
+  left: 0;
+  padding: 5px 13px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  line-height: 1.5;
+  width: 352px;
+  color: $tundora;
+  font-family: Ubuntu, sans-serif;
+}
+
+.fa-map-market {
+  color: $turquoise;
+}
+
 .option {
   font-family: Ubunty, sans-serif;
   color: #d5d1d1;
