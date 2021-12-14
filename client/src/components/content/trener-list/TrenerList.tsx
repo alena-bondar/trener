@@ -11,13 +11,14 @@ type Props = {
 const TrenerList: React.FC<Props> = ({ queryParams }) => {
   const [trenersForShowing, setTrenersForShowing] = useState([]);
   const query = new URLSearchParams(useLocation().search);
-  const sport = query.get("sport") ? `sport=${query.get("sport")}` : "";
-  const price = query.get("priceFrom")
-    ? `priceFrom=${query.get("priceFrom")}&priceTo=${query.get("priceTo")}`
-    : "";
+  const searchParams = {
+    sport: query.get("sport"),
+    priceFrom: query.get("priceFrom"),
+    priceTo: query.get("priceTo"),
+  };
 
   useEffect(() => {
-    treners(sport, price).then((treners) => {
+    treners(searchParams).then((treners) => {
       setTrenersForShowing(treners.data);
     });
   }, [queryParams.sport, queryParams.priceFrom, queryParams.priceTo]);

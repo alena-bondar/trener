@@ -21,7 +21,7 @@
 
   padding: 10px 25px;
   border-radius: 3px;
-  background-color: white;
+  background-color: $white;
 
   &__price {
     font-size: 18px;
@@ -43,7 +43,7 @@
   &__set {
     @include button;
     color: $orange;
-    font-family: Ubuntu, sans-serif;
+    font-family: $font;
     font-weight: 900;
   }
 

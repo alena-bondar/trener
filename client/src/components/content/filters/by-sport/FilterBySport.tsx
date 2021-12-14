@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { debounce } from "services/debounce";
+import { debounce } from "helpers/debounce";
 import { sports } from "api/sports";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import arrow from "images/arrow-to-right.svg";

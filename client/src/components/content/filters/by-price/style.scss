@@ -2,8 +2,9 @@
 @import "../../../../styles/variables";
 
 .by-price {
-  background-color: white;
   @include shadow;
+
+  background-color: white;
 
   margin-top: 16px;
   padding: 25px 30px 20px;
@@ -22,10 +23,10 @@
   }
 
   &__filter-txt {
+    @include font;
+
     color: black;
     font-weight: 600;
-
-    @include font;
   }
 
   &__reset-txt {

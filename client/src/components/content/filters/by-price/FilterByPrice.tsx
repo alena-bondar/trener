@@ -16,6 +16,16 @@ const FilterByPrice: React.FC = () => {
       search: `?${sport}`,
     });
   };
+
+  const reset = () => {
+    setFilterValue("");
+    navigate({
+      search: `?${sport}`,
+    });
+  };
+
+  const showWindow = () => setShowPriceWindow(true);
+
   const query = new URLSearchParams(useLocation().search);
   const navigate = useNavigate();
   const sport = query.get("sport") ? `&sport=${query.get("sport")}` : "";
@@ -24,16 +34,7 @@ const FilterByPrice: React.FC = () => {
     <div className="by-price">
       <div className="by-price__text-container">
         <span className="by-price__filter-txt">Фільтр</span>
-        <button
-          type="button"
-          onClick={() => {
-            setFilterValue("");
-            navigate({
-              search: `?${sport}`,
-            });
-          }}
-          className="by-price__reset-txt"
-        >
+        <button type="button" onClick={reset} className="by-price__reset-txt">
           Скинути
         </button>
       </div>
@@ -41,7 +42,7 @@ const FilterByPrice: React.FC = () => {
         <input
           value={filterValue}
           readOnly
-          onClick={() => setShowPriceWindow(true)}
+          onClick={showWindow}
           type="text"
           className="by-sport__input hideIt"
           placeholder="Вартість"
