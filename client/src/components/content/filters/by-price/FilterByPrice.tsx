@@ -9,7 +9,13 @@ const FilterByPrice: React.FC = () => {
   const [showPriceWindow, setShowPriceWindow] = useState(false);
   const [filterValue, setFilterValue] = useState("");
 
-  const clearParams = () => setFilterValue("");
+  const clearParams = () => {
+    setFilterValue("");
+
+    navigate({
+      search: `?${sport}`,
+    });
+  };
   const query = new URLSearchParams(useLocation().search);
   const navigate = useNavigate();
   const sport = query.get("sport") ? `&sport=${query.get("sport")}` : "";

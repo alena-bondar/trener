@@ -22,8 +22,6 @@ const TrenerList: React.FC<Props> = ({ queryParams }) => {
     });
   }, [queryParams.sport, queryParams.priceFrom, queryParams.priceTo]);
 
-  console.log(trenersForShowing);
-
   return (
     <div>
       <div className="trener-cards">
