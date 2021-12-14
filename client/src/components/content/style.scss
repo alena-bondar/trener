@@ -4,6 +4,10 @@
 .content {
   margin: 0 auto;
   width: 1200px;
+
+  &__blocks {
+    display: flex;
+  }
 }
 
 .treners-city-text {
@@ -15,12 +19,18 @@
 
 .parametrs {
   display: inline-block;
+  margin-right: 20px;
 
   width: 285px;
 }
 
 .showing-treners {
-  display: inline-block;
+  width: calc(100% - 285px);
+}
 
-  background-color: #b3d4fc;
+.rating-block {
+  background-color: green;
+
+  height: 42px;
+  width: 100%
 }

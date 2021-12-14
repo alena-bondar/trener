@@ -6,7 +6,7 @@ interface exit {
   min: number;
   max: number;
   minVal: number;
-  onChange: any;
+  onChange: ({ min, max }: { min: number; max: number }) => void;
   maxVal: number;
   setMinVal: React.Dispatch<React.SetStateAction<number>>;
   setMaxVal: React.Dispatch<React.SetStateAction<number>>;
@@ -21,9 +21,9 @@ const MultiRangeSlider = ({
   setMinVal,
   setMaxVal,
 }: exit): JSX.Element => {
-  const minValRef = useRef<any>(null);
-  const maxValRef = useRef<any>(null);
-  const range = useRef<any>(null);
+  const minValRef = useRef(null);
+  const maxValRef = useRef(null);
+  const range = useRef<HTMLHeadingElement>(null);
 
   const getPercent = useCallback(
     (value) => Math.round(((value - min) / (max - min)) * 100),
@@ -33,25 +33,25 @@ const MultiRangeSlider = ({
   useEffect(() => {
     if (maxValRef.current) {
       const minPercent = getPercent(minVal);
-      const maxPercent = getPercent(+maxValRef.current.value); // Preceding with '+' converts the value from type string to type number
+      const maxPercent = getPercent(maxVal);
 
       if (range.current) {
         range.current.style.left = `${minPercent}%`;
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
-  }, [minVal, getPercent]);
+  }, [minVal, maxVal, getPercent]);
 
   useEffect(() => {
     if (minValRef.current) {
-      const minPercent = getPercent(+minValRef.current.value);
+      const minPercent = getPercent(minVal);
       const maxPercent = getPercent(maxVal);
 
       if (range.current) {
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
-  }, [maxVal, getPercent]);
+  }, [maxVal, minVal, getPercent]);
 
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });

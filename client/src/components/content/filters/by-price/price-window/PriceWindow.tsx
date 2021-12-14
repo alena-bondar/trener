@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import MyltiRangerSlider from "helpers/multiRangeSlider/MyltiRangerSlider";
-import { treners } from "api/treners";
 import "./style.scss";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 
 type Props = {
   setShowPriceWindow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,11 +14,10 @@ export const PriceWindow: React.FC<Props> = ({
 }) => {
   const [minVal, setMinVal] = useState(0);
   const [maxVal, setMaxVal] = useState(1000);
-
-  const rootEl = useRef<any>(null);
+  const rootEl = useRef(null);
 
   useEffect(() => {
-    const onClick = (e: any) => {
+    const onClick = () => {
       // return rootEl.current.contains(e.target) || setShowPriceWindow(false);
     };
     document.addEventListener("click", onClick);
@@ -26,15 +25,27 @@ export const PriceWindow: React.FC<Props> = ({
     return () => document.removeEventListener("click", onClick);
   }, []);
 
-  const resetValues = () => {
-    setMinVal(0);
-    setMaxVal(1000);
+  const query = new URLSearchParams(useLocation().search);
+  const navigate = useNavigate();
+  const price: any = {
+    priceFrom: minVal,
+    priceTo: maxVal,
   };
+  const sport = query.get("sport") ? `&sport=${query.get("sport")}` : "";
 
   const setValue = () => {
     setShowPriceWindow(false);
     setFilterValue(`₴${minVal} - ${maxVal}`);
-    treners("", `priceFrom=${minVal}&priceTo=${maxVal}`);
+
+    navigate({
+      pathname: "/trainers/filter",
+      search: `?${createSearchParams(price)}${sport}`,
+    });
+  };
+
+  const resetValues = () => {
+    setMinVal(0);
+    setMaxVal(1000);
   };
 
   return (
@@ -57,11 +68,17 @@ export const PriceWindow: React.FC<Props> = ({
           />
         </div>
       </div>
+
       <div className="price-window__terminal">
-        <button onClick={resetValues} className="price-window__reset">
+        <button
+          type="button"
+          onClick={resetValues}
+          className="price-window__reset"
+        >
           Скинути
         </button>
-        <button onClick={setValue} className="price-window__set">
+
+        <button type="button" onClick={setValue} className="price-window__set">
           Обрати
         </button>
       </div>

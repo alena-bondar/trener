@@ -1,18 +1,31 @@
 import React, { useState } from "react";
 import "./style.scss";
 import arrow from "images/arrow-to-right.svg";
+import cross from "images/cross.svg";
 import { PriceWindow } from "./price-window/PriceWindow";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export const FilterByPrice: React.FC = () => {
+const FilterByPrice: React.FC = () => {
   const [showPriceWindow, setShowPriceWindow] = useState(false);
   const [filterValue, setFilterValue] = useState("");
+
+  const clearParams = () => setFilterValue("");
+  const query = new URLSearchParams(useLocation().search);
+  const navigate = useNavigate();
+  const sport = query.get("sport") ? `&sport=${query.get("sport")}` : "";
 
   return (
     <div className="by-price">
       <div className="by-price__text-container">
         <span className="by-price__filter-txt">Фільтр</span>
         <button
-          onClick={() => setFilterValue("")}
+          type="button"
+          onClick={() => {
+            setFilterValue("");
+            navigate({
+              search: `?${sport}`,
+            });
+          }}
           className="by-price__reset-txt"
         >
           Скинути
@@ -28,14 +41,14 @@ export const FilterByPrice: React.FC = () => {
           placeholder="Вартість"
         />
 
-        {/* {(true && true && (*/}
-        <img
-          // onClick={clearParams}
-          className="arrow-img"
-          src={arrow}
-          alt="Cross"
-        />
-        {/* )) || <img className="arrow-img  cross" src={arrow} alt="Arrow" />}*/}
+        {(filterValue.length > 0 && (
+          <img
+            onClick={clearParams}
+            className="arrow-img cross"
+            src={cross}
+            alt="Cross"
+          />
+        )) || <img className="arrow-img" src={arrow} alt="Arrow" />}
       </div>
       {showPriceWindow && (
         <div>
@@ -48,3 +61,5 @@ export const FilterByPrice: React.FC = () => {
     </div>
   );
 };
+
+export default React.memo(FilterByPrice);

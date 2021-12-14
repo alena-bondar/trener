@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { debounce } from "services/debounce";
 import { sports } from "api/sports";
-import { treners } from "api/treners";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import arrow from "images/arrow-to-right.svg";
 import cross from "images/cross.svg";
 
@@ -23,15 +23,36 @@ export const FilterBySport: React.FC = () => {
 
   const applyQuery = useCallback(debounce(setAppliedQuery, 500), []);
   const setVisibility = () => setIsComponentVisible(true);
-  const clearParams = () => {
-    setAppliedQuery("");
-    setSearchParams("");
-    setFilteredSearch([]);
-  };
 
   useEffect(() => {
     sports(searchParam, setFilteredSearch);
   }, [appliedQuery]);
+
+  const query = new URLSearchParams(useLocation().search);
+  const navigate = useNavigate();
+  let price: any = {
+    priceFrom: query.get("priceFrom"),
+    priceTo: query.get("priceTo"),
+  };
+
+  if (!price.priceTo) {
+    price = "";
+  }
+
+  const sport = searchParam
+    ? `${query.get("priceFrom") ? "&" : ""}sport=${searchParam}`
+    : "";
+
+  const clearParams = () => {
+    navigate({
+      pathname: "/trainers/filter",
+      search: `?${createSearchParams(price)}`,
+    });
+
+    setAppliedQuery("");
+    setSearchParams("");
+    setFilteredSearch([]);
+  };
 
   return (
     <div className="by-sport by-sport__search">
@@ -58,7 +79,6 @@ export const FilterBySport: React.FC = () => {
           />
         )) || <img className="img" src={arrow} alt="Arrow" />}
       </div>
-
       {appliedQuery.length > 2 && filteredSearch.length > 0 && (
         <SearchBox
           sports={filteredSearch}
@@ -70,8 +90,16 @@ export const FilterBySport: React.FC = () => {
           refer={refer}
         />
       )}
-
-      <button onClick={() => treners(searchParam)} className="by-sport__button">
+      <button
+        type="button"
+        onClick={() => {
+          navigate({
+            pathname: "/trainers/filter",
+            search: `?${createSearchParams(price)}${sport}`,
+          });
+        }}
+        className="by-sport__button"
+      >
         Знайти
       </button>
     </div>
