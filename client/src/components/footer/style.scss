@@ -3,12 +3,9 @@
 .footer {
   display: flex;
   justify-content: center;
-
   background-color: $tundora;
 
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  //position: relative;
   height: 250px;
 
   &__box {

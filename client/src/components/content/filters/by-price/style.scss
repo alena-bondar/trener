@@ -1,0 +1,60 @@
+@import "../../../../styles/mixins";
+@import "../../../../styles/variables";
+
+.by-price {
+  @include shadow;
+
+  background-color: white;
+
+  margin-top: 16px;
+  padding: 25px 30px 20px;
+
+  &__input {
+    @include input;
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  &__text-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__filter-txt {
+    @include font;
+
+    color: black;
+    font-weight: 600;
+  }
+
+  &__reset-txt {
+    @include button;
+    color: grey;
+
+    font-family: Ubuntu, sans-serif;
+    font-size: 12px;
+  }
+}
+
+.arrow-img {
+  @include icon-png;
+}
+
+.cross {
+  cursor: pointer;
+}
+
+.hideIt {
+  text-shadow: 0 0 0 gray;
+  color: transparent !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none; // latest Opera versions support -webkit-
+  user-select: none;
+  &:focus {
+    outline: none;
+  }
+}

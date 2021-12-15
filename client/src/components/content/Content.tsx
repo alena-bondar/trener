@@ -1,11 +1,17 @@
 import React from "react";
 import "./style.scss";
 import { Filters } from "./filters/Filters";
-import {TrenerLogin} from "../header/trener-login/TrenerLogin";
-import {TrenerLogout} from "../header/trener-logout/TrenerLogout";
-import {GoogleLogin} from "../header/google-login/GoogleLogin";
+import TrenerList from "./trener-list/TrenerList";
+import { useLocation } from "react-router-dom";
 
-export const Content: React.FC = () => {
+export const Content = (): JSX.Element => {
+  const query = new URLSearchParams(useLocation().search);
+  const queryParams = {
+    sport: query.get("sport") || "",
+    priceFrom: query.get("priceFrom") || "",
+    priceTo: query.get("priceTo") || "",
+  };
+
   return (
     <div className="content">
       <div className="treners-city-text">
@@ -13,16 +19,14 @@ export const Content: React.FC = () => {
       </div>
 
       <div className="content__blocks">
-        <div>
-          <div className="parametrs">
-            <Filters />
+        <div className="parametrs">
+          <Filters />
+          <div className="bookmarks" />
+        </div>
 
-            <div className="bookmarks"></div>
-          </div>
-            <TrenerLogin />
-            <GoogleLogin />
-            <TrenerLogout />
-          <div className="showing-treners">All treners</div>
+        <div className="showing-treners">
+          <div className="rating-block"></div>
+          <TrenerList queryParams={queryParams} />
         </div>
       </div>
     </div>
