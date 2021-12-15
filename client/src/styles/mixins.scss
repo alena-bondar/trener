@@ -1,5 +1,7 @@
+@import "variables.scss";
+
 @mixin font {
-  font-family: Ubuntu, sans-serif;
+  font-family: $font;
   font-size: 14px;
 }
 

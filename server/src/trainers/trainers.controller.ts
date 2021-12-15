@@ -59,6 +59,7 @@ export class TrainersController {
       age: createTrainerDto.age,
       lastName: createTrainerDto.lastName,
       name: createTrainerDto.name,
+      locationSport: createTrainerDto.locationSport,
     };
     const newTrainer = await this.trainersService.create(trainerData);
 
