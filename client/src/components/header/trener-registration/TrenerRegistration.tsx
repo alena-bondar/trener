@@ -34,6 +34,13 @@ export const TrenerRegistration: React.FC<Props> = ({
     resolver: yupResolver(validationSchema),
   });
 
+  const {
+    ready,
+    value,
+    suggestions: {status, data},
+    setValue
+  } = usePlacesAutocomplete();
+
   const onSubmit = (data: FormData) => {
     const withoutDash = {
       ...data,
@@ -59,13 +66,6 @@ export const TrenerRegistration: React.FC<Props> = ({
     fetchKindsOfSports();
   }, []);
 
-  const {
-    ready,
-    value,
-    suggestions: {status, data},
-    setValue
-  } = usePlacesAutocomplete();
-
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);
   };
@@ -75,10 +75,8 @@ export const TrenerRegistration: React.FC<Props> = ({
   };
 
   const renderSuggestions = () => {
-    // eslint-disable-next-line camelcase
     return data.map(({place_id, description}: any) => (
-        // eslint-disable-next-line camelcase
-        <ComboboxOption key={place_id} value={description}/>
+        <ComboboxOption key={place_id} value={description} />
     ));
   };
 
@@ -209,7 +207,7 @@ export const TrenerRegistration: React.FC<Props> = ({
           </div>
           <div>
             <div>
-              <i className="fa fa-map-marker" aria-hidden="true" />
+              <i className="fa fa-map-marker fa-2x reg__icon reg__icon--down" aria-hidden="true" />
               <Combobox onSelect={handleSelect} className="reg__inlet">
                 <ComboboxInput
                     {...register('location')}
@@ -219,7 +217,7 @@ export const TrenerRegistration: React.FC<Props> = ({
                     onChange={handleInput}
                     disabled={!ready}
                 />
-              <ComboboxPopover >
+              <ComboboxPopover>
                 <ComboboxList className='location' >
                   {status === "OK" && renderSuggestions()}
                 </ComboboxList>

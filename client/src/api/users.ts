@@ -11,7 +11,8 @@ function users(data: FormData): void {
         .then((userCredential) => {
             userCredential.user.getIdToken()
                 .then((response) => {
-                   geocoder.geocode({'address': data.location}, function (results, status){
+                   geocoder.geocode({'address': data.location},
+                       function (results){
                         const locationLat = results[0].geometry.location.lat();
                         const locationLng = results[0].geometry.location.lng();
                        console.log(locationLat, locationLng)
