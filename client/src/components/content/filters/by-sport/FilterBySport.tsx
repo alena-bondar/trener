@@ -2,7 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { debounce } from "helpers/debounce";
 import { sports } from "api/sports";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
+import {
+  createSearchParams,
+  URLSearchParamsInit,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import arrow from "images/arrow-to-right.svg";
 import cross from "images/cross.svg";
 
@@ -30,13 +35,13 @@ export const FilterBySport: React.FC = () => {
 
   const query = new URLSearchParams(useLocation().search);
   const navigate = useNavigate();
-  let price: any = {
-    priceFrom: query.get("priceFrom"),
-    priceTo: query.get("priceTo"),
+  let price: URLSearchParamsInit = {
+    priceFrom: query.get("priceFrom") || "",
+    priceTo: query.get("priceTo") || "",
   };
 
   if (!price.priceTo) {
-    price = "";
+    price = {};
   }
 
   const sport = searchParam
