@@ -75,7 +75,7 @@ export const TrenerRegistration: React.FC<Props> = ({
   };
 
   const renderSuggestions = () => {
-    return data.map(({place_id, description}: any) => (
+    return data.map(({place_id, description}) => (
         <ComboboxOption key={place_id} value={description} />
     ));
   };

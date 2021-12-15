@@ -3,10 +3,8 @@
 .footer {
   display: flex;
   justify-content: center;
-  height: 200px;
 
   background-color: $tundora;
-  height: 200px;
 
   position: relative;
   bottom: 0;
@@ -53,9 +51,9 @@
 }
 
 .contacts {
-  color: white;
+  color: $white;
   border: none;
-  font-family: Ubuntu, sans-serif;
+  font-family: $font;
 
   font-size: 18px;
   font-weight: 700;
@@ -66,20 +64,20 @@
   flex-direction: column;
 
   &__data {
-    color: white;
+    color: $white;
     font-size: 16px;
 
     position: relative;
     left: 10px;
 
-    font-family: Ubuntu, sans-serif;
+    font-family: $font;
     font-weight: 300;
     text-decoration: none;
   }
 }
 
 .icon {
-  color: grey;
+  color: $grey;
 }
 
 .adress {
