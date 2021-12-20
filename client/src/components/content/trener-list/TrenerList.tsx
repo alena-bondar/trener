@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { treners } from "api/treners";
 import trenerImg from "images/superman-icon.png";
 import "./style.scss";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 type Props = {
   queryParams: any;
@@ -30,14 +30,21 @@ const TrenerList: React.FC<Props> = ({ queryParams }) => {
           return (
             <div key={trener._id} className="trener-card">
               <div className="trener-card__info-block">
-                <img
-                  className="trener-card__img"
-                  src={trenerImg}
-                  alt="superman-icon"
-                />
+                <Link to={`/trainers/${trener._id}`}>
+                  <img
+                    className="trener-card__img"
+                    src={trenerImg}
+                    alt="superman-icon"
+                  />
+                </Link>
                 <div className="trener-card__info">
-                  <p className="trener-card__info__name">{`${trener.name} ${trener.lastName}`}</p>
-                  <p className="trener-card__info__sport">{trener.sport}</p>
+                  <Link
+                    className="trener-card__info__sport"
+                    to={`/trainers/${trener._id}`}
+                  >
+                    <p className="trener-card__info__name">{`${trener.name} ${trener.lastName}`}</p>
+                    <p className="trener-card__info__sport">{trener.sport}</p>
+                  </Link>
                 </div>
               </div>
               <div className="trener-card__price-block">

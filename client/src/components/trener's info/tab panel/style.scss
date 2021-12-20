@@ -1,0 +1,206 @@
+@import "src/styles/variables";
+@import "src/styles/mixins";
+
+.tabpanel {
+  background-color: $turquoise;
+  color: white;
+  height: 50px;
+
+  &:focus {
+    background-color: $blue-dianne;
+  }
+
+  &__about {
+    &__tegs {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    &__param {
+      display: flex;
+      align-items: center;
+
+      width: 25%;
+      font-family: $font;
+      font-size: 18px;
+
+      font-weight: 300;
+
+      color: $grey;
+    }
+
+    &__value {
+      font-family: $font;
+      color: $tundora;
+
+      width: 75%;
+
+      font-size: 18px;
+      font-weight: 300;
+
+      padding: 10px;
+
+      background-color: $alabaster;
+      border: 1px solid $gallery;
+      border-radius: 3px;
+    }
+  }
+}
+
+.blue {
+  margin-top: 30px;
+}
+
+.respond {
+
+  &__input-block {
+    position: relative;
+
+    padding: 15px;
+
+    background-color: $alabaster;
+    border: 1px solid $gallery;
+
+    border-radius: 3px;
+  }
+
+  &__input {
+    height: 28px;
+    padding: 5px 10px 5px 50px;
+
+    width: calc(100% - 190px);
+
+    border: 1px solid $mischka;
+    border-radius: 3px;
+    transition: border-color 0.2s;
+    font-size: 18px;
+
+    color: grey;
+
+    &::placeholder {
+      color: $silver;
+    }
+
+    &:focus {
+      border-color: #4976e5;
+    }
+  }
+
+  &__container {
+
+    position: relative;
+    &__icon {
+      display: block;
+
+      color: $turquoise;
+      position: absolute;
+      top: 33px;
+      left: 15px;
+
+      font-size: 1.5em;
+
+      z-index: 3;
+    }
+
+    &__text {
+      font-size: 13px;
+      font-family: $font;
+      color: $grey;
+    }
+
+    &__likes {
+      display: inline-block;
+
+      position: relative;
+      top: 3px;
+
+      margin: 0 15px;
+    }
+
+    &__button {
+      margin-right: 5px;
+      box-sizing: border-box;
+      border: none;
+      border: 1px solid $grey;
+      background-color: inherit;
+
+      border-radius: 3px;
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  &__bottom {
+    margin-top: 10px;
+    max-width: 690px;
+
+    display: flex;
+    justify-content: space-between;
+
+    &__text {
+      font: $font;
+      font-size: 18px;
+      font-weight: 300;
+      color: $grey;
+
+      margin-right: 10px;
+    }
+
+    &__button {
+      height: 40px;
+      width: 185px;
+
+      background-color: $silverChalice;
+      border: none;
+      border-radius: 3px;
+      font: $font;
+
+      color: $white;
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    &__face {
+      height: 32px;
+      width: 32px;
+
+      border-radius: 3px;
+      margin-right: 8px;
+    }
+
+    &__google {
+      height: 32px;
+      width: 32px;
+    }
+  }
+
+  &__filtered-respond {
+    margin-top: 35px;
+
+    &__text {
+      color: $placeholder-grey;
+      font-size: 15px;
+
+      font-family: $font;
+      font-weight: 300;
+    }
+  }
+
+  &__filters {
+    border: none;
+
+    color: $placeholder-grey;
+  }
+}
+
+.button-down {
+  &:hover {
+    border: 1px solid $crown-of-thorns;
+  }
+}
+
+.button-up {
+  &:hover {
+    border: 1px solid $turquoise;
+  }
+}
