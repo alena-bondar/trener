@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, ChangeEvent} from "react";
 import { useForm, Controller } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +11,8 @@ import kindsOfSport from "types/kindsOfSports";
 
 import "./style.scss";
 import { sports } from "api/sports";
+import {Combobox, ComboboxInput, ComboboxList, ComboboxOption, ComboboxPopover} from "@reach/combobox";
+import usePlacesAutocomplete from "use-places-autocomplete";
 
 type Props = {
   setShowRegistration: (param: boolean) => void;
@@ -31,6 +33,13 @@ export const TrenerRegistration: React.FC<Props> = ({
   } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
   });
+
+  const {
+    ready,
+    value,
+    suggestions: {status, data},
+    setValue
+  } = usePlacesAutocomplete();
 
   const onSubmit = (data: FormData) => {
     const withoutDash = {
@@ -56,6 +65,20 @@ export const TrenerRegistration: React.FC<Props> = ({
   useEffect(() => {
     fetchKindsOfSports();
   }, []);
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect = (val: string): void => {
+    setValue(val, false);
+  };
+
+  const renderSuggestions = () => {
+    return data.map(({place_id, description}) => (
+        <ComboboxOption key={place_id} value={description} />
+    ));
+  };
 
   return (
     <div className="reg">
@@ -182,7 +205,26 @@ export const TrenerRegistration: React.FC<Props> = ({
               додати ще 2 додаткових вида спорту
             </span>
           </div>
-
+          <div>
+            <div>
+              <i className="fa fa-map-marker fa-2x reg__icon reg__icon--down" aria-hidden="true" />
+              <Combobox onSelect={handleSelect} className="reg__inlet">
+                <ComboboxInput
+                    {...register('location')}
+                    className="input"
+                    value={value}
+                    placeholder="Місце роботи"
+                    onChange={handleInput}
+                    disabled={!ready}
+                />
+              <ComboboxPopover>
+                <ComboboxList className='location' >
+                  {status === "OK" && renderSuggestions()}
+                </ComboboxList>
+            </ComboboxPopover>
+              </Combobox>
+            </div>
+          </div>
           <i className="fa fa-mobile fa-3x reg__icon" aria-hidden="true" />
           <div className="reg__inlet--for-two reg__inlet">
             {errors.phoneNumber && (
