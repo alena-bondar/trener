@@ -4,7 +4,7 @@ import { Filters } from "./filters/Filters";
 import TrenerList from "./trener-list/TrenerList";
 import { useLocation } from "react-router-dom";
 
-export const Content = (): JSX.Element => {
+const Content = (): JSX.Element => {
   const query = new URLSearchParams(useLocation().search);
   const queryParams = {
     sport: query.get("sport") || "",
@@ -32,3 +32,5 @@ export const Content = (): JSX.Element => {
     </div>
   );
 };
+
+export default React.memo(Content);
