@@ -48,6 +48,8 @@ export const TrenerRegistration: React.FC<Props> = ({
       phoneNumber: data.phoneNumber.split("-").join(""),
     };
 
+    console.log(data)
+
     users(withoutDash);
     reset();
   };

@@ -6,6 +6,8 @@ import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 function users(data: FormData): void {
     const auth = getAuth();
     const geocoder = new google.maps.Geocoder();
+    let locationLat: number | null;
+    let locationLng: number | null;
 
     createUserWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential) => {
@@ -13,9 +15,12 @@ function users(data: FormData): void {
                 .then((response) => {
                    geocoder.geocode({'address': data.location},
                        function (results){
-                        const locationLat = results[0].geometry.location.lat();
-                        const locationLng = results[0].geometry.location.lng();
-                       console.log(locationLat, locationLng)
+                           if (results) {
+                               locationLat = results[0].geometry.location.lat();
+                           }
+                           if (results) {
+                               locationLng = results[0].geometry.location.lng();
+                           }
                        axios.post(`${BASE_URL}/trainers`, {
                            phoneNumber: data.phoneNumber,
                            sport: data.sport,

@@ -1,11 +1,13 @@
 import * as React from "react";
 import trenerImg from "images/superman-icon.png";
-import mapImg from "images/map.png";
 import TabPanels from "./tab panel/TabPanels";
-import "./style.scss";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { getTrenerInfo } from "../../api/getTrenerInfo";
+
+import "./style.scss";
+
+import Map from "helpers/map";
 
 const TrenersInfo: React.FC = () => {
   const preData = {
@@ -15,6 +17,7 @@ const TrenersInfo: React.FC = () => {
     phoneNumber: "000",
     price: 0,
     sport: "sport",
+    locationSport: { lat: 50.45466, lng: 30.5238 },
   };
   const [trenerInfo, setTrenerInfo] = useState(preData);
 
@@ -30,7 +33,9 @@ const TrenersInfo: React.FC = () => {
         <img className="treners-photo" src={trenerImg} alt="Trener photo" />
 
         <div className="treners-info__map">
-          <img className="treners-info__map__img" src={mapImg} alt="Map" />
+          <div className="treners-info__google-map">
+            <Map location={trenerInfo.locationSport} />
+          </div>
         </div>
       </div>
 

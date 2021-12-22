@@ -5,7 +5,7 @@ import "./style.scss";
 import { Link, useLocation } from "react-router-dom";
 
 type Props = {
-  queryParams: any;
+  queryParams: { sport: string; priceFrom: string; priceTo: string };
 };
 
 const TrenerList: React.FC<Props> = ({ queryParams }) => {
@@ -26,43 +26,51 @@ const TrenerList: React.FC<Props> = ({ queryParams }) => {
   return (
     <div>
       <div className="trener-cards">
-        {trenersForShowing.map((trener: any) => {
-          return (
-            <div key={trener._id} className="trener-card">
-              <div className="trener-card__info-block">
-                <Link to={`/trainers/${trener._id}`}>
-                  <img
-                    className="trener-card__img"
-                    src={trenerImg}
-                    alt="superman-icon"
-                  />
-                </Link>
-                <div className="trener-card__info">
-                  <Link
-                    className="trener-card__info__sport"
-                    to={`/trainers/${trener._id}`}
-                  >
-                    <p className="trener-card__info__name">{`${trener.name} ${trener.lastName}`}</p>
-                    <p className="trener-card__info__sport">{trener.sport}</p>
+        {trenersForShowing.map(
+          (trener: {
+            _id: number;
+            name: string;
+            lastName: string;
+            sport: string;
+            price: number;
+          }) => {
+            return (
+              <div key={trener._id} className="trener-card">
+                <div className="trener-card__info-block">
+                  <Link to={`/trainers/${trener._id}`}>
+                    <img
+                      className="trener-card__img"
+                      src={trenerImg}
+                      alt="superman-icon"
+                    />
                   </Link>
+                  <div className="trener-card__info">
+                    <Link
+                      className="trener-card__info__sport"
+                      to={`/trainers/${trener._id}`}
+                    >
+                      <p className="trener-card__info__name">{`${trener.name} ${trener.lastName}`}</p>
+                      <p className="trener-card__info__sport">{trener.sport}</p>
+                    </Link>
+                  </div>
+                </div>
+                <div className="trener-card__price-block">
+                  <div>
+                    <p className="trener-card__price-block__price">
+                      від ₴{trener.price}
+                    </p>
+                    <p className="trener-card__price-block__text">
+                      за тренування
+                    </p>
+                  </div>
+                  <button className="trener-card__write-to-trener">
+                    Написати тренеру
+                  </button>
                 </div>
               </div>
-              <div className="trener-card__price-block">
-                <div>
-                  <p className="trener-card__price-block__price">
-                    від ₴{trener.price}
-                  </p>
-                  <p className="trener-card__price-block__text">
-                    за тренування
-                  </p>
-                </div>
-                <button className="trener-card__write-to-trener">
-                  Написати тренеру
-                </button>
-              </div>
-            </div>
-          );
-        })}
+            );
+          }
+        )}
       </div>
     </div>
   );
