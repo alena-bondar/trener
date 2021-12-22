@@ -19,6 +19,11 @@
     }
   }
 
+  &__google-map {
+    height: 400px;
+    width: 300px;
+  }
+
   &__right-size {
     width: calc(100% - 300px - 30px);
   }
