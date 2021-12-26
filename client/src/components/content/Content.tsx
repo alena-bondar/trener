@@ -3,6 +3,7 @@ import "./style.scss";
 import { Filters } from "./filters/Filters";
 import TrenerList from "./trener-list/TrenerList";
 import { useLocation } from "react-router-dom";
+import { TrenerLogin } from "../header/trener-login/TrenerLogin";
 
 const Content = (): JSX.Element => {
   const query = new URLSearchParams(useLocation().search);
@@ -21,6 +22,7 @@ const Content = (): JSX.Element => {
       <div className="content__blocks">
         <div className="parametrs">
           <Filters />
+          <TrenerLogin />
           <div className="bookmarks" />
         </div>
 
