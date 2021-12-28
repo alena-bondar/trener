@@ -1,5 +1,6 @@
 import React from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import { MAP_KEY } from "services/MAP_KEY";
 
 const containerStyle = {
   width: "300px",
@@ -15,7 +16,7 @@ const Map: React.FC<Props> = ({
 }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyB6RrY0T0Q6ysVAsfacueW8gwGX2bXpvZQ",
+    googleMapsApiKey: `${MAP_KEY}`,
   });
 
   return isLoaded ? (

@@ -1,18 +1,27 @@
-import React, {useState, useEffect, ChangeEvent} from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useForm, Controller } from "react-hook-form";
-import InputMask from "react-input-mask";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormData } from "types/FormData";
 import { validationSchema } from "helpers/validationShema";
 import { fullNameMessage } from "helpers/fullNameMessage";
+import { sports } from "api/sports";
+import { useDispatch } from "react-redux";
+
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPopover,
+} from "@reach/combobox";
 
 import users from "api/users";
 import kindsOfSport from "types/kindsOfSports";
+import InputMask from "react-input-mask";
 
 import "./style.scss";
-import { sports } from "api/sports";
-import {Combobox, ComboboxInput, ComboboxList, ComboboxOption, ComboboxPopover} from "@reach/combobox";
 import usePlacesAutocomplete from "use-places-autocomplete";
+import { newUser } from "../../../toolkit-redux/toolkitSlice";
 
 type Props = {
   setShowRegistration: (param: boolean) => void;
@@ -37,9 +46,11 @@ export const TrenerRegistration: React.FC<Props> = ({
   const {
     ready,
     value,
-    suggestions: {status, data},
-    setValue
+    suggestions: { status, data },
+    setValue,
   } = usePlacesAutocomplete();
+
+  const dispatch = useDispatch();
 
   const onSubmit = (data: FormData) => {
     const withoutDash = {
@@ -48,8 +59,7 @@ export const TrenerRegistration: React.FC<Props> = ({
       phoneNumber: data.phoneNumber.split("-").join(""),
     };
 
-    console.log(data)
-
+    dispatch(newUser(withoutDash));
     users(withoutDash);
     reset();
   };
@@ -77,8 +87,8 @@ export const TrenerRegistration: React.FC<Props> = ({
   };
 
   const renderSuggestions = () => {
-    return data.map(({place_id, description}) => (
-        <ComboboxOption key={place_id} value={description} />
+    return data.map(({ place_id, description }) => (
+      <ComboboxOption key={place_id} value={description} />
     ));
   };
 
@@ -209,21 +219,24 @@ export const TrenerRegistration: React.FC<Props> = ({
           </div>
           <div>
             <div>
-              <i className="fa fa-map-marker fa-2x reg__icon reg__icon--down" aria-hidden="true" />
+              <i
+                className="fa fa-map-marker fa-2x reg__icon reg__icon--down"
+                aria-hidden="true"
+              />
               <Combobox onSelect={handleSelect} className="reg__inlet">
                 <ComboboxInput
-                    {...register('location')}
-                    className="input"
-                    value={value}
-                    placeholder="Місце роботи"
-                    onChange={handleInput}
-                    disabled={!ready}
+                  {...register("location")}
+                  className="input"
+                  value={value}
+                  placeholder="Місце роботи"
+                  onChange={handleInput}
+                  disabled={!ready}
                 />
-              <ComboboxPopover>
-                <ComboboxList className='location' >
-                  {status === "OK" && renderSuggestions()}
-                </ComboboxList>
-            </ComboboxPopover>
+                <ComboboxPopover>
+                  <ComboboxList className="location">
+                    {status === "OK" && renderSuggestions()}
+                  </ComboboxList>
+                </ComboboxPopover>
               </Combobox>
             </div>
           </div>
