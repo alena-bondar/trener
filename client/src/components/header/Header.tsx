@@ -5,12 +5,16 @@ import { TrenerRegistration } from "./trener-registration/TrenerRegistration";
 
 import person from "images/person.svg";
 import "./style.scss";
+import { TrenerLogin } from "./trener-login/TrenerLogin";
 
 export const Header: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<string>("Київ");
   const [selectedLanguage, setSelectedLanguage] =
     useState<string>("українська");
   const [showRegistration, setShowRegistration] = useState<boolean>(false);
+  const [isLoginVisible, setIsLoginVisible] = useState(true);
+
+  const showLogIn = () => setIsLoginVisible(true);
 
   return (
     <div className="header-wrapper">
@@ -40,8 +44,17 @@ export const Header: React.FC = () => {
         <div>
           <img src={person} className="person" />
 
-          <button className="enter-button text text--300">Увійти</button>
-
+          <button onClick={showLogIn} className="enter-button text text--300">
+            Увійти
+          </button>
+          {isLoginVisible ? (
+            <TrenerLogin
+              isLoginVisible={isLoginVisible}
+              setIsLoginVisible={setIsLoginVisible}
+            />
+          ) : (
+            <></>
+          )}
         </div>
 
         <button
