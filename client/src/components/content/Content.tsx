@@ -21,6 +21,7 @@ const Content = (): JSX.Element => {
       <div className="content__blocks">
         <div className="parametrs">
           <Filters />
+
           <div className="bookmarks" />
         </div>
 
